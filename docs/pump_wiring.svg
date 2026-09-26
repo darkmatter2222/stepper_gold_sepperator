@@ -49,6 +49,6 @@
 <text x="1110" y="197" font-family="Arial,sans-serif" font-size="16" fill="#193448">100 nF</text>
 <text x="1110" y="218" font-family="Arial,sans-serif" font-size="16" fill="#193448">ceramic</text>
 <text x="35" y="585" font-family="Arial,sans-serif" font-size="19" fill="#193448">Also add 100 µF / 25 V bulk capacitor: + to 12 V, − to common GND near the switch.</text>
-<text x="35" y="620" font-family="Arial,sans-serif" font-size="19" fill="#193448">Pump power stays off the NodeMCU. USB powers the board. Never apply 12 V to GPIO.</text>
+<text x="35" y="620" font-family="Arial,sans-serif" font-size="19" fill="#193448">NodeMCU VIN uses L7805 5 V (see power diagram). Disconnect VIN before USB.</text>
 <text x="35" y="655" font-family="Arial,sans-serif" font-size="19" fill="#193448">Use a suitable breakout and secure power wiring; verify startup current and temperature.</text>
 <text x="35" y="690" font-family="Arial,sans-serif" font-size="19" fill="#193448">Diode band stays at electrical +12 V even if motor leads are swapped to reverse flow.</text></svg>

@@ -69,12 +69,12 @@ See **[the wiring guide](docs/WIRING.md)** and **[the wiring diagram](docs/wirin
 | Logic supply | 3V3 | | VDD, MS1, MS2, MS3, RESET, SLEEP |
 | Common reference | GND | | Driver logic GND and motor-supply negative |
 
-Use USB to power the NodeMCU and a separate suitable motor supply for VMOT. Never connect VMOT to 3V3 or a GPIO. The OLED partly visible in the photo is not required or driven by this firmware; disconnect it for initial testing, especially if it uses D2.
+Use one regulated **12 V DC supply**: a secure branch feeds driver VMOT and the pump, while an **L7805 TO-220 linear regulator** supplies **5 V to NodeMCU VIN**. The upper breadboard positive rail is 5 V; the lower positive rail is 12 V; both negative rails share GND. Keep motor/pump current off breadboard rails. **Verify the actual regulator marking/pinout and NodeMCU VIN first; never apply 12 V to VIN or 5 V to 3V3.** See the wiring guide for capacitors, heatsinking and staged voltage checks. Disconnect external VIN power before attaching USB. The OLED partly visible in the photo is not required or driven by this firmware; disconnect it for initial testing, especially if it uses D2.
 
 ## Build and upload in VS Code
 
 1. Install the PlatformIO IDE extension and open this repository folder (the one containing `platformio.ini`).
-2. Select `nodemcuv2`, connect the NodeMCU by USB, then click **Build**, followed by **Upload**.
+2. Turn off 12 V and disconnect the external 5 V-to-VIN lead before attaching USB. Select `nodemcuv2`, then click **Build**, followed by **Upload**. Keep external VIN disconnected while using USB Serial Monitor; unplug USB before restoring regulator power.
 3. Open **Serial Monitor**, 115200 baud. If autodetection picks the wrong port, add `upload_port = COM5` and `monitor_port = COM5` with your actual Windows port.
 4. It boots in LOW, IDLE. With wiring/current limit checked, hold the button for 0.8 seconds to start.
 

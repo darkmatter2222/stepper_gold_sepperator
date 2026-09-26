@@ -72,6 +72,6 @@ The Kamoer NKP family contains variants. No generic family dimensions or adverti
 | Pump switch | AO3400A on suitable breakout | Specified component, not identified from user's loose transistor stock |
 | Protection | 1N5822 flyback diode, 330 ohm gate resistor, 100k pulldown | Specified circuit |
 | Capacitors | 100 nF across pump; 100 µF/25 V supply bulk for 12 V | Specified circuit; stepper VMOT also has its own bulk capacitor |
-| Power | USB for NodeMCU, regulated 12 V for pump; suitable verified motor supply | Supply current capacity and current limit require hardware confirmation |
+| Power | Shared regulated 12 V; L7805 TO-220 + heatsink converts to 5 V for NodeMCU VIN; driver logic remains 3.3 V | Supply current capacity and current limit require hardware confirmation |
 
 See [WIRING.md](WIRING.md), [PUMP.md](PUMP.md) and `include/Config.h` for exact nets and firmware settings. No undocumented connector dimensions, motor current rating or pump flow are assumed to be measured facts.

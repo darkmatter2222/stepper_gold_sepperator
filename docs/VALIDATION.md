@@ -23,3 +23,9 @@ Flow, leakage, startup current, thermal behavior and recovery remain unmeasured.
 Not performed: flashing the user's board, electrical identification of the covered driver, verifying the motor current rating, oscilloscope timing, physical motion/load/thermal tests, or gold recovery measurements. The firmware build and host tests do not replace those checks.
 
 The first package mirror returned invalid downloads; PlatformIO rejected their checksums and obtained valid packages from another mirror. Verification was not bypassed. Framework elf2bin.py emitted Python invalid-escape SyntaxWarnings, but the binary build succeeded; CI uses Python 3.11.
+
+## 2026-09-26: shared 12 V / L7805 documentation revision
+
+Updated README, wiring guide, pump guide, hardware reference, standalone power/stepper/pump SVGs and combined diagram. Rendered all three standalone SVGs with Inkscape and visually checked labels and connections. XML parsing, generator repeatability and whitespace checks passed. Regenerate with `python tools/draw_wiring.py`; `docs/stepper_wiring.svg` is the editable stepper source. Existing mechanical PDF contains no integrated electronics diagram; original release archives remain historical snapshots. Firmware and CAD are unchanged; no new firmware test run is claimed.
+
+Physical checks still required: obscured regulator marking/pinout, driver identity, clone VIN power path, breadboard continuity, output voltage under load, regulator cooling, current limit and motor/pump startup transients.

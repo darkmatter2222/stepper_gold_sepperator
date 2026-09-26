@@ -21,3 +21,9 @@ Continuous position commands use constant-acceleration triangular/trapezoidal pr
 - [Vishay 1N5820–1N5822 datasheet](https://www.vishay.com/docs/88526/1n5820.pdf): 1N5822 is 3 A / 40 V.
 
 Pump timings are conservative experimental starting settings, not results from fluid simulation. The lid geometry is digitally checked but not physically leak-tested.
+
+## 12 V / L7805 power revision (2026-09-26)
+
+- ST L78 datasheet, TO-220 pinout, application bypass capacitors, minimum load and thermal data: https://www.st.com/resource/en/datasheet/l78.pdf
+- Original NodeMCU DevKit v1.0 schematic (reference only; clone isolation is not established): https://github.com/nodemcu/nodemcu-devkit-v1.0/blob/master/NODEMCU_DEVKIT_V1.0.PDF
+- New breadboard photographs show ESP8266 ESP-12E, red driver carrier, heatsink-mounted three-lead regulator and tactile button. Regulator marking and driver IC remain obscured; no hole-by-hole pinout is inferred.

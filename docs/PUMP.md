@@ -21,7 +21,9 @@ Use an **AO3400A N-channel MOSFET on a suitable SOT-23 breakout**, not a loose t
 | 100 µF, 25 V electrolytic | + to 12 V, − to ground near switching circuit |
 | Pump supply negative | NodeMCU GND and stepper supply GND |
 
-AO3400A package pins are 1=gate, 2=source, 3=drain; verify the datasheet and breakout labels, not header order. The 1N5822 is a 3 A / 40 V Schottky flyback diode. Keep motor/diode wires short. The external gate pulldown keeps the pump off during reset. Power the NodeMCU by USB, never by putting 12 V on a GPIO or its 3V3 pin.
+AO3400A package pins are 1=gate, 2=source, 3=drain; verify the datasheet and breakout labels, not header order. The 1N5822 is a 3 A / 40 V Schottky flyback diode. Keep motor/diode wires short. The external gate pulldown keeps the pump off during reset. Power NodeMCU VIN from the L7805 5 V output, following [the shared-supply wiring guide](WIRING.md). Never apply 12 V to VIN, GPIO or 3V3. Disconnect external VIN before USB use. The pump stays on 12 V and must not load the 5 V regulator.
+
+![Shared 12 V and regulated 5 V rails](power_wiring.svg)
 
 A regulated 12 V supply with about 2 A capacity is a reasonable pump-branch starting point, subject to measured startup current. If sharing the stepper supply, it must be 12 V with enough combined capacity. A higher-voltage stepper supply requires a separate regulated 12 V supply or suitable buck converter for this pump. Add a branch fuse selected for measured startup current and wire capacity. Route pump current through secure soldered/terminal connections, not GPIO or thin breadboard rails.
 

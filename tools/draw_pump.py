@@ -22,9 +22,8 @@ text(923,166,'Band / cathode',17);text(923,196,'1N5822',19);text(923,226,'Anode'
 # Suppression ceramic across motor
 line(1080,115,1080,195);line(1060,195,1100,195);line(1060,210,1100,210);line(1080,210,1080,285);dot(1080,115);text(1110,197,'100 nF',16);text(1110,218,'ceramic',16)
 text(35,585,'Also add 100 µF / 25 V bulk capacitor: + to 12 V, − to common GND near the switch.',19)
-text(35,620,'Pump power stays off the NodeMCU. USB powers the board. Never apply 12 V to GPIO.',19)
+text(35,620,'NodeMCU VIN uses L7805 5 V (see power diagram). Disconnect VIN before USB.',19)
 text(35,655,'Use a suitable breakout and secure power wiring; verify startup current and temperature.',19)
 text(35,690,'Diode band stays at electrical +12 V even if motor leads are swapped to reverse flow.',19)
 body='\n'.join(a)
 (root/'docs/pump_wiring.svg').write_text('<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="730" viewBox="0 0 1280 730"><rect width="1280" height="730" fill="#f7fafc"/>'+body+'</svg>')
-f=root/'docs/wiring.svg';old=f.read_text();old=old.split('<rect y="930"')[0].removesuffix('</svg>')+'</svg>';old=old.replace('height="930" viewBox="0 0 1280 930"','height="1660" viewBox="0 0 1280 1660"',1);old=old.replace('</svg>','<rect y="930" width="1280" height="730" fill="#f7fafc"/><g transform="translate(0 930)">'+body+'</g></svg>');f.write_text(old)
