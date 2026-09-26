@@ -1,0 +1,56 @@
+{
+  "P01_base.stl": {
+    "triangles": 10972,
+    "closed_manifold": true,
+    "oriented_edges": true,
+    "positive_volume_mm3": 31787.156
+  },
+  "P02_motor_deck.stl": {
+    "triangles": 16740,
+    "closed_manifold": true,
+    "oriented_edges": true,
+    "positive_volume_mm3": 26209.139
+  },
+  "P03_spacer_x4.stl": {
+    "triangles": 1680,
+    "closed_manifold": true,
+    "oriented_edges": true,
+    "positive_volume_mm3": 1166.142
+  },
+  "P04_catcher.stl": {
+    "triangles": 17690,
+    "closed_manifold": true,
+    "oriented_edges": true,
+    "positive_volume_mm3": 60348.797
+  },
+  "P05_drive_hub.stl": {
+    "triangles": 9504,
+    "closed_manifold": true,
+    "oriented_edges": true,
+    "positive_volume_mm3": 4948.503
+  },
+  "P06_bowl.stl": {
+    "triangles": 73916,
+    "closed_manifold": true,
+    "oriented_edges": true,
+    "positive_volume_mm3": 33840.847
+  },
+  "P07_optional_trap_insert.stl": {
+    "triangles": 5786,
+    "closed_manifold": true,
+    "oriented_edges": true,
+    "positive_volume_mm3": 206.076
+  },
+  "P08_lid.stl": {
+    "triangles": 9008,
+    "closed_manifold": true,
+    "oriented_edges": true,
+    "positive_volume_mm3": 17127.069
+  },
+  "P09_insert_coupon.stl": {
+    "triangles": 5060,
+    "closed_manifold": true,
+    "oriented_edges": true,
+    "positive_volume_mm3": 9210.681
+  }
+}

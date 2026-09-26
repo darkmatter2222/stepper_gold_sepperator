@@ -1,0 +1,85 @@
+{
+  "P01_base": {
+    "valid_solid": true,
+    "dimensions_mm": [
+      84.0,
+      84.0,
+      46.0
+    ],
+    "volume_mm3": 31791.925
+  },
+  "P02_motor_deck": {
+    "valid_solid": true,
+    "dimensions_mm": [
+      84.0,
+      84.0,
+      12.0
+    ],
+    "volume_mm3": 26212.32
+  },
+  "P03_spacer_x4": {
+    "valid_solid": true,
+    "dimensions_mm": [
+      12.0,
+      12.0,
+      12.0
+    ],
+    "volume_mm3": 1166.316
+  },
+  "P04_catcher": {
+    "valid_solid": true,
+    "dimensions_mm": [
+      84.0,
+      103.258,
+      39.826
+    ],
+    "volume_mm3": 60356.971
+  },
+  "P05_drive_hub": {
+    "valid_solid": true,
+    "dimensions_mm": [
+      36.0,
+      36.0,
+      10.0
+    ],
+    "volume_mm3": 4949.212
+  },
+  "P06_bowl": {
+    "valid_solid": true,
+    "dimensions_mm": [
+      64.0,
+      64.0,
+      31.0
+    ],
+    "volume_mm3": 33847.717
+  },
+  "P07_optional_trap_insert": {
+    "valid_solid": true,
+    "dimensions_mm": [
+      15.8,
+      15.8,
+      8.143
+    ],
+    "volume_mm3": 206.1
+  },
+  "P08_lid": {
+    "valid_solid": true,
+    "dimensions_mm": [
+      86.0,
+      86.0,
+      3.0
+    ],
+    "volume_mm3": 17129.158
+  },
+  "P09_insert_coupon": {
+    "valid_solid": true,
+    "dimensions_mm": [
+      62.0,
+      18.0,
+      9.0
+    ],
+    "volume_mm3": 9210.577
+  },
+  "interferences": [],
+  "rotation_interferences": []
+}

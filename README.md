@@ -4,6 +4,49 @@ PlatformIO / Arduino C++ firmware for the **ESP8266 NodeMCU ESP-12E shown in the
 
 **Starts stopped every time.** No unexpected motion after reset, firmware upload or power restoration. This firmware implements experimental motion, not proven gold recovery. The previous 64 mm bowl design does not establish an optimal speed. HIGH is a relative preset name, not a validated operating limit.
 
+## Project files and revision selection
+
+**For the current small prototype, use the v2 kit with the revised P05 M3 hub and P08 brass-inlet lid.** Do not print the original P05/P08 from the v2 snapshot for the current build. The original large v1 is preserved for reference.
+
+| Folder or file | Contents / purpose |
+|---|---|
+| [Mechanical index](mechanical/README.md) | Current print list, quantities, revision precedence and archive map |
+| [v2 kit](mechanical/gold_poc_v2/) | All nine original STL parts, individual STEP solids, assembly STEP, CAD generators, calculations, validation and rendered views |
+| [M3 drive hub](mechanical/hub_m3_revision/) | Current replacement P05, editable source, section and reviewed views |
+| [Brass-inlet lid](mechanical/lid_water/) | Current replacement P08, editable source, section and reviewed views |
+| [Illustrated assembly PDF](docs/guides/Central_Trap_Gold_POC_v2_Assembly.pdf) | Existing 18-page build guide; apply the hub/lid updates listed below |
+| [Guide index and amendments](docs/guides/README.md) | Which guide applies and what has changed since its publication |
+| [Original v1](mechanical/archive/gold_poc_v1/) | Superseded 128 mm bowl design and its source/checks |
+| [Original ZIP deliveries](releases/original_packages/) | Unmodified v1 kit, v2 kit and M3 hub delivery packages |
+| [Artifact manifest](docs/ARTIFACT_MANIFEST.json) | Byte sizes and SHA-256 checksums of preserved CAD, guides, source and review artifacts |
+| [Wiring](docs/WIRING.md) / [pump](docs/PUMP.md) | Electrical connections, switching components and flow calibration |
+| [Sources](docs/SOURCES.md) / [validation](docs/VALIDATION.md) | Research references, assumptions, checks and remaining physical tests |
+| `src/`, `include/`, `test/`, `platformio.ini` | C++ firmware, settings, host tests and pinned PlatformIO environments |
+
+The original assembly STEP and PDF show the original v2 hub and lid. The current replacement STEP files use assembly coordinates and can replace those parts in CAD. There is not yet a regenerated combined assembly STEP/PDF showing both replacements. Their illustrated instructions take precedence for P05 and P08.
+
+## Mechanical design and hardware
+
+This proof of concept has a **64 mm bowl**, reduced from the first version's 128 mm bowl. The original v2 assembled envelope is approximately **86 × 103 × 104 mm**, including the drain. The revised lid adds its collar above that height: its top is at assembly Z=120 mm, with a suggested 35 mm brass tube reaching approximately Z=137 mm, excluding flexible hose. Do not scale the STLs; motor, shaft, bearings and fasteners retain their real dimensions.
+
+| Item | Current specification / qualification |
+|---|---|
+| Motor | Moons C17HD40-102-01N as reported; 5 mm shaft with a D-flat. Exact phase-current rating remains unverified |
+| Motor envelope used in CAD | 42 mm square × 40 mm body, 31 mm mounting square, 22 mm pilot, shaft projection assumed about 18–26 mm |
+| Shaft support | Separate 5 × 10 × 4 mm thrust bearing; motor supplies radial support |
+| General assembly | M4 screws and heat-set inserts; v2 insert assumption approximately 6 mm OD × 6 mm long, nominal 5.6 mm pilot |
+| Motor mounting | M3 threads in the motor; use the PDF's fastener schedule and confirm actual engagement |
+| Revised P05 hub | One approximately 4.5 mm OD × 4 mm long M3 insert and M3 × 10 mm retaining screw against shaft flat; existing three M4 × 8 mm bowl attachments |
+| Revised P08 lid | One matching-size M3 insert and M3 × 8 mm tube-retaining screw; original four M4 lid mounts retained |
+| Brass inlet | 4 mm OD / 3 mm ID; start with 35 mm cut length; deburr both ends |
+| Tube support | 4.2 mm socket, 18 mm engagement, 3.2 mm outlet below a positive seating shoulder |
+| Feed opening | 26 mm diameter, retained in the revised lid |
+| Pump | Kamoer NKP-DC-S10B, label 12 V / 5 W; actual flow and startup current require measurement |
+
+Print the P09 insert coupon first. The nominal M4 insert hole is not universal; match it to your actual inserts. The M3 revisions also depend on insert OD and length, not just the M3 thread designation. PETG and robust perimeters are the starting print recommendations. Follow each part's orientation and support instructions. Closed STL geometry does not guarantee a watertight print; test wet parts separately.
+
+The bowl has a blind central sump and smooth entrance; P07 is an optional recessed insert. The catcher uses a sloped floor and flush drain invert. A raised central shaft opening and splash labyrinth reduce splashing but are not a submerged rotary seal. Keep the drain open and capture all discharge. The inlet is off center, 22 mm from the axis, so it does not inject directly into the concentrate sump.
+
 ## Brass-tube lid and water pump
 
 Print the [replacement lid STL](mechanical/lid_water/P08_lid_brass_4mm.stl), then follow the [illustrated assembly guide](mechanical/lid_water/README.md) and [12 V pump guide](docs/PUMP.md). The supported 4 mm brass tube seats on a shoulder so it cannot fall into the bowl.
@@ -72,6 +115,67 @@ Spin motion uses a trapezoidal velocity profile. Acceleration and deceleration a
 At 1.8° full steps and 1/16 microstepping, scaling is 3200 pulses/revolution; HIGH spin requires 1600 pulses/second. Verify that your motor is actually 200 full steps/revolution and physically wire all three A4988 microstep inputs HIGH. Microstepping smooths commands; it does not guarantee mechanical angular accuracy.
 
 At the end of each spin, the stopped location becomes the next local rocking center. There is no homing sensor and no need to return to the original absolute shaft angle. Coordinates reset only at rest to avoid position accumulation over hours. No random stages are enabled, so experiments can be repeated and compared.
+
+## Water delivery, flow rates and calibration
+
+The pump runs at **full regulated 12 V when ON**. Firmware uses slow timed bursts rather than high-frequency PWM. GPIO D1 controls the MOSFET, not pump power directly. Automatic water defaults to enabled after boot, but output remains OFF until rocking begins. There is no unexpected prime on startup.
+
+| Preset | ON per interval | OFF per interval | Nominal duty within a long uninterrupted rocking window | Ideal average if continuous flow is Q mL/min |
+|---|---:|---:|---:|---:|
+| LOW | 0.50 s | 4.50 s | 10% | 0.10 × Q |
+| MEDIUM | 0.75 s | 4.25 s | 15% | 0.15 × Q |
+| HIGH | 1.00 s | 4.00 s | 20% | 0.20 × Q |
+
+**These are timing ratios, not measured water flow rates.** Each rocking batch begins with an ON pulse; the batch can end partway through an interval. Water is OFF during centering, settling, spin, rest and stopping. Consequently, multiplying by 10/15/20% does not give the whole-machine average, and the actual cyclic average is not necessarily lower than those ratios because intervals restart. Short-burst startup, pump rollers, hose elasticity, lift and outlet restriction also affect delivery. The exact NKP-S10B tube configuration and a manufacturer flow curve for this unit have not been verified. We have not simulated or optimized this system's water flow.
+
+For measured pump ON time `t_on` over complete elapsed time `T`, an ideal estimate is `Q_cycle ≈ Q_continuous × t_on / T`. Measuring actual collected volume over complete cycles is better.
+
+1. Route the installed outlet to a graduated cup at the operating height. Prime the line with `p` (3 seconds) until it is full and bubble-free.
+2. While idle, send `c` for a 30-second continuous pump run. If the cup contains **V mL**, the measured continuous estimate is **2 × V mL/min**. Repeat for consistency.
+3. Run each preset for a measured number of minutes, collecting output across complete motion batches. **Actual average mL/min = collected mL ÷ elapsed minutes**. Record tube dimensions, lift, preset and edited timings with the result.
+4. Confirm the assembled catcher's outlet clears inflow without a rising level. Start with an empty bowl, then water, then a very small prepared sample. No maximum drain throughput has been measured.
+5. Edit `PUMP_SCHEDULE` and repeat if the bed dries out, material cannot wash away or the catcher accumulates water. More water can also carry fine gold away. Retain tailings.
+
+For arithmetic illustration only, collecting 20 mL during a 30-second calibration means 40 mL/min continuous. The ideal long-window rates at 10/15/20% duty would be 4/6/8 mL/min, but these are **not this pump's measured ratings** and must not be used as actual separator setpoints.
+
+| Measurement | Current status |
+|---|---|
+| Nameplate supply | 12 V DC |
+| Nameplate power | 5 W |
+| Current inferred from 5 W / 12 V | About 0.42 A; not measured running or stall current |
+| Continuous installed flow | Not measured |
+| LOW / MEDIUM / HIGH whole-cycle flow | Not measured |
+| Maximum catcher drainage rate | Not measured |
+| Recovery versus flow or feed size | Not measured |
+
+The brass bore has cross-sectional area about 7.07 mm². If actual flow is `Q` mL/min, mean velocity in its 3 mm ID straight section is approximately `0.00236 × Q` m/s. This dimensional calculation is not a nozzle, pressure-drop, splash or particle-recovery simulation. Flow near the bowl depends on the free jet and liquid bed as well as the tube.
+
+Use the [pump guide](docs/PUMP.md) for MOSFET wiring, flyback protection, supply sizing, terminal direction and siphon checks. Keep hoses strain-relieved. A stopped peristaltic pump is not assumed to be a certified shutoff valve.
+
+## Complete controls and settings
+
+| Serial command | Meaning |
+|---|---|
+| `1`, `2`, `3` | Select LOW, MEDIUM or HIGH; apply at next complete batch if already running |
+| `s` | Start motion from idle; automatic water follows its phase schedule |
+| `x` | Shut water off immediately, decelerate motor, disable coils once stopped |
+| `!` | Shut water off and disable drive immediately; rotor can coast |
+| `p` | 3-second prime while idle only |
+| `c` | 30-second calibration while idle only |
+| `w` | Toggle automatic-water enable; cancel current pump output |
+| `?` | Print phase, selected/active mode and water state |
+
+Manual prime/calibration requests during motion are ignored. Repeating a manual command does not extend an active dose. Starting motion cancels manual dispensing. A short button press changes the selected preset; it is not a stop command. A long press starts or requests controlled stop. Use a physical power disconnect when servicing.
+
+`include/Config.h` contains motion profiles, pin numbers, motor steps, microstep count, pump ON/OFF times, prime/calibration duration, direction inversion and the experimental `PUMP_DURING_SPIN` option (default false). Durations are milliseconds unless the field says otherwise. All settings are compile-time; rebuild and upload after editing. Serial changes are not persisted after reset.
+
+## Separation mechanics and research limits
+
+The intended sequence is gentle rocking to loosen/stratify the bed, a quiet settling interval, then a brief ramped forward spin to move some material outward. Gravity and the bowl slope can favor inward transport when grains can move. Rotation produces outward acceleration `a = omega² × radius`; it is not a guarantee that light material exits while all gold stays centered. Both grain size and density matter, and flakes can behave differently from spheres.
+
+At the bowl's nominal 32 mm outer radius, 10/20/30 rpm correspond to approximately 0.0036/0.0143/0.0322 g outward acceleration. These are analytical values, not proof of useful solids ejection. The 20.2° bowl slope is an experimental design choice. The source calculations in the v2 kit are explicitly analytical screening, not CFD, multiphase simulation or an optimization study.
+
+The goal is a dense concentrate at the center. The pocket can fill with black sand and other heavies; it cannot guarantee pure gold or prevent every fine particle escaping. Clay must be dispersed to free trapped gold; wet screening alone may not do that. The present prototype has no automated feed conveyor or concentrate discharge. Automatic repeated motion is implemented; hours of unattended bucket-scale processing have not been established.
 
 ## Tuning and first run
 

@@ -1,0 +1,112 @@
+{
+  "01_motor_base": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      116.0,
+      116.0,
+      60.0
+    ],
+    "volume_mm3": 174130.0
+  },
+  "02_bearing_stand": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      100.0,
+      100.0,
+      71.0
+    ],
+    "volume_mm3": 130440.9
+  },
+  "09_bearing_spacer": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      12.0,
+      12.0,
+      13.0
+    ],
+    "volume_mm3": 715.1
+  },
+  "10_bearing_retainer": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      36.0,
+      36.0,
+      3.0
+    ],
+    "volume_mm3": 2147.1
+  },
+  "03_splash_catcher": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      166.0,
+      185.0,
+      64.0
+    ],
+    "volume_mm3": 216359.3
+  },
+  "11_splash_lid": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      170.0,
+      170.0,
+      3.0
+    ],
+    "volume_mm3": 62079.8
+  },
+  "04_catcher_bracket_print4": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      43.0,
+      14.0,
+      5.0
+    ],
+    "volume_mm3": 2752.9
+  },
+  "05_sealed_bowl": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      128.0,
+      128.0,
+      52.0
+    ],
+    "volume_mm3": 122660.9
+  },
+  "06_trap_collar": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      43.5,
+      48.67,
+      7.7
+    ],
+    "volume_mm3": 4321.4
+  },
+  "07_drive_hub": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      60.0,
+      60.0,
+      16.0
+    ],
+    "volume_mm3": 14522.4
+  },
+  "08_insert_coupon": {
+    "valid": true,
+    "solids": 1,
+    "bbox_mm": [
+      65.0,
+      24.0,
+      10.0
+    ],
+    "volume_mm3": 14735.7
+  }
+}

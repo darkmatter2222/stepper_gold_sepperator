@@ -1,0 +1,55 @@
+{
+  "model": "Analytical screening only; no CFD, no measured recovery",
+  "slope_degrees": 20.225,
+  "friction_cases": [
+    {
+      "friction_coefficient": 0,
+      "inward_sliding_limit_rpm": 106.6
+    },
+    {
+      "friction_coefficient": 0.1,
+      "inward_sliding_limit_rpm": 89.4
+    },
+    {
+      "friction_coefficient": 0.2,
+      "inward_sliding_limit_rpm": 69.6
+    },
+    {
+      "friction_coefficient": 0.3,
+      "inward_sliding_limit_rpm": 43.6
+    },
+    {
+      "friction_coefficient": 0.4,
+      "inward_sliding_limit_rpm": null
+    }
+  ],
+  "ideal_gold_settling": [
+    {
+      "gold_diameter_um": 10,
+      "viscosity_mPa_s": 1,
+      "settling_mm_per_s": 0.997,
+      "time_for_5mm_s": 5.01
+    },
+    {
+      "gold_diameter_um": 10,
+      "viscosity_mPa_s": 5,
+      "settling_mm_per_s": 0.199,
+      "time_for_5mm_s": 25.07
+    },
+    {
+      "gold_diameter_um": 20,
+      "viscosity_mPa_s": 1,
+      "settling_mm_per_s": 3.989,
+      "time_for_5mm_s": 1.25
+    },
+    {
+      "gold_diameter_um": 20,
+      "viscosity_mPa_s": 5,
+      "settling_mm_per_s": 0.798,
+      "time_for_5mm_s": 6.27
+    }
+  ],
+  "oscillatory_boundary_layer_mm_at_1Hz": 0.564,
+  "radial_g_at_30rpm_r29mm": 0.0292,
+  "drain_floor": "z=67+0.03*y mm; outlet follows same slope; flat bore invert matches floor within 0.003 mm"
+}

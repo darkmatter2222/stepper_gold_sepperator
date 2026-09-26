@@ -1,5 +1,13 @@
 # Validation record
 
+## Current pump/lid revision
+
+2026-09-26: ESP8266 build passed, RAM 28,844 / 81,920 bytes, flash 273,491 / 1,044,464 bytes. All 15 host tests passed (8 motion/button tests plus 7 pump tests). Pump tests cover phase gating, timing across reversals, preset intervals, cancellation, manual run limits, rollover and delayed loops. Lid is one valid solid with a closed oriented 17,854-triangle mesh. Modeled lid/brass/screw clearances against the original bowl and catcher passed. Multiple exported-mesh views and a section were visually reviewed. Pump wiring was rendered and visually reviewed.
+
+Flow, leakage, startup current, thermal behavior and recovery remain unmeasured. This repository archival/documentation update changes no firmware or geometry. Preserved artifact bytes are indexed in `ARTIFACT_MANIFEST.json`.
+
+## Original firmware baseline
+
 2026-09-26, PlatformIO Core 6.2.0, Linux host.
 
 - `pio run -e nodemcuv2`: PASS. Espressif8266 platform 4.2.1, Arduino core 3.1.2, AccelStepper 1.64.0. RAM 28,712 / 81,920 bytes (35.0%); flash 272,919 / 1,044,464 bytes (26.1%). Firmware binary linked successfully.

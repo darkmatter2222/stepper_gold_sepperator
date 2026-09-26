@@ -1,0 +1,46 @@
+{
+  "01_motor_base.stl": {
+    "triangles": 5584,
+    "closed_two_faces_per_edge": true
+  },
+  "02_bearing_stand.stl": {
+    "triangles": 9304,
+    "closed_two_faces_per_edge": true
+  },
+  "03_splash_catcher.stl": {
+    "triangles": 8418,
+    "closed_two_faces_per_edge": true
+  },
+  "04_catcher_bracket_print4.stl": {
+    "triangles": 884,
+    "closed_two_faces_per_edge": true
+  },
+  "05_sealed_bowl.stl": {
+    "triangles": 9284,
+    "closed_two_faces_per_edge": true
+  },
+  "06_trap_collar.stl": {
+    "triangles": 3180,
+    "closed_two_faces_per_edge": true
+  },
+  "07_drive_hub.stl": {
+    "triangles": 5342,
+    "closed_two_faces_per_edge": true
+  },
+  "08_insert_coupon.stl": {
+    "triangles": 2112,
+    "closed_two_faces_per_edge": true
+  },
+  "09_bearing_spacer.stl": {
+    "triangles": 840,
+    "closed_two_faces_per_edge": true
+  },
+  "10_bearing_retainer.stl": {
+    "triangles": 2112,
+    "closed_two_faces_per_edge": true
+  },
+  "11_splash_lid.stl": {
+    "triangles": 4260,
+    "closed_two_faces_per_edge": true
+  }
+}
