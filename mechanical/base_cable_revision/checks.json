@@ -1,0 +1,59 @@
+{
+  "valid_single_solid": true,
+  "closed_oriented_stl": true,
+  "triangles": 21660,
+  "volume_mm3": 44048.92114271133,
+  "bounding_box_mm": [
+    84.00943141353991,
+    84.00943141353996,
+    46.005387195908355
+  ],
+  "base_plate_thickness_mm": 4,
+  "old_post_diameter_mm": 9,
+  "new_post_diameter_mm": 12,
+  "foot_diameter_mm": 18,
+  "lower_support_radius_mm": 41,
+  "lower_support_angles_deg": [
+    45,
+    135,
+    225,
+    315
+  ],
+  "top_support_radius_mm": 36,
+  "top_support_angles_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "top_z_mm": 46,
+  "insert_pilot_mm": 5.6,
+  "insert_depth_mm": 6.5,
+  "upper_straight_section_z_mm": [
+    37,
+    46
+  ],
+  "connector_assumption": {
+    "width_mm": 24,
+    "z_range_mm": [
+      6,
+      22
+    ],
+    "radial_range_mm": [
+      21,
+      66
+    ],
+    "status": "unmeasured clearance envelope, NOT a connector specification"
+  },
+  "intersection_volumes_mm3": {
+    "motor": 0.0,
+    "unchanged_P02": 0.0,
+    "connector_corridor_0": 0.0,
+    "connector_corridor_90": 0.0,
+    "connector_corridor_180": 0.0,
+    "connector_corridor_270": 0.0
+  },
+  "unchanged_top_hole_alignment": true,
+  "hardware_assumptions": "../gold_poc_v2/STEP/H_motor.step; 42x42x40 mm body at z6..46",
+  "validation_limit": "No physical print/load test. Angled braces need slicer support review."
+}

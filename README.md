@@ -6,12 +6,14 @@ PlatformIO / Arduino C++ firmware for the **ESP8266 NodeMCU ESP-12E shown in the
 
 ## Project files and revision selection
 
-**For the current small prototype, use the v2 kit with the revised P05 M3 hub and P08 brass-inlet lid.** Do not print the original P05/P08 from the v2 snapshot for the current build. The original large v1 is preserved for reference.
+**For the current small prototype, use the v2 kit with the revised P01 cable-clearance base, P05 M3 hub and P08 brass-inlet lid.** Do not print the original P01/P05/P08 from the v2 snapshot for the current build. The original large v1 is preserved for reference.
 
 | Folder or file | Contents / purpose |
 |---|---|
 | [Mechanical index](mechanical/README.md) | Current print list, quantities, revision precedence and archive map |
 | [v2 kit](mechanical/gold_poc_v2/) | All nine original STL parts, individual STEP solids, assembly STEP, CAD generators, calculations, validation and rendered views |
+| [Reinforced cable-clearance base](mechanical/base_cable_revision/) | Current P01 replacement; existing P02 deck retained, lower posts offset 45°, wider braces and flared feet |
+| [Hardware dimensions and assumptions](docs/HARDWARE.md) | Motor, pump, tubing, bearing, fastener and electronics reference; measured values separated from assumptions |
 | [M3 drive hub](mechanical/hub_m3_revision/) | Current replacement P05, editable source, section and reviewed views |
 | [Brass-inlet lid](mechanical/lid_water/) | Current replacement P08, editable source, section and reviewed views |
 | [Illustrated assembly PDF](docs/guides/Central_Trap_Gold_POC_v2_Assembly.pdf) | Existing 18-page build guide; apply the hub/lid updates listed below |
@@ -23,7 +25,7 @@ PlatformIO / Arduino C++ firmware for the **ESP8266 NodeMCU ESP-12E shown in the
 | [Sources](docs/SOURCES.md) / [validation](docs/VALIDATION.md) | Research references, assumptions, checks and remaining physical tests |
 | `src/`, `include/`, `test/`, `platformio.ini` | C++ firmware, settings, host tests and pinned PlatformIO environments |
 
-The original assembly STEP and PDF show the original v2 hub and lid. The current replacement STEP files use assembly coordinates and can replace those parts in CAD. There is not yet a regenerated combined assembly STEP/PDF showing both replacements. Their illustrated instructions take precedence for P05 and P08.
+The original assembly STEP and PDF show the original v2 base, hub and lid. The current replacement STEP files use assembly coordinates and can replace those parts in CAD. There is not yet a regenerated combined assembly STEP/PDF showing all three replacements. Their illustrated instructions take precedence for P01, P05 and P08.
 
 ## Mechanical design and hardware
 
@@ -194,3 +196,9 @@ No encoder, stall detection, current measurement, temperature sensor or blocked-
 Host tests cover boot-idle behavior, button bounce/long-press/boot-held behavior, millisecond rollover, queued mode transitions, every normal stop phase, immediate disable, spin-distance calculation, and coordinate resets over 1000 batches. The fake motor tests control logic; they do not establish physical pulse timing or recovery. GitHub Actions runs those tests and builds the ESP8266 firmware. See [sources and engineering notes](docs/SOURCES.md).
 
 Pump tests cover burst timing across reversals, phase gating, preset timing, immediate cancellation, manual time limits, rollover and delayed-loop behavior. This revision passed all 15 host tests and built for `nodemcuv2` (RAM 28,844 bytes; flash 273,491 bytes). Hardware flow and electrical startup behavior remain to be measured.
+
+## P01 motor-harness clearance revision
+
+The photographed motor socket was blocked by an original straight lower post. The [revised P01 base](mechanical/base_cable_revision/README.md) shifts the lower supports 45°, increases horizontal post sections from 9 to 12 mm, and adds 18 mm flared feet. Angled braces return to the original four upper mounting holes, so the existing P02 upper plate is reused. The lower base anchor holes move to the cardinal positions. Check slicer supports for the angled braces. CAD checks use an explicit, unmeasured 24 × 16 mm connector corridor; confirm the actual plug and cable fit. No firmware changes accompany this revision.
+
+All hardware dimensions and unresolved measurements are centralized in [HARDWARE.md](docs/HARDWARE.md). In particular, the pump body and mounting pattern have not been measured or modeled; its label establishes 12 V / 5 W, not its envelope or flow rate.

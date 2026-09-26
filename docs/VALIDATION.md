@@ -1,5 +1,10 @@
 # Validation record
 
+## Reinforced cable-clearance base
+
+P01 revision: valid single CAD solid; closed, oriented STL with positive volume and 21,660 triangles. No volumetric intersection with the original 42 × 42 × 40 mm motor envelope, unchanged P02 deck, or the assumed 24 × 16 mm straight connector corridors on any of four faces. Original upper screw axes/height retained. Five STL views and two reference assembly/connector views were visually reviewed. The connector dimensions are unmeasured allowances. No physical print, cable-bend, strength or fatigue test has been performed. Angled braces require slicer support review. Firmware is unchanged.
+
+
 ## Current pump/lid revision
 
 2026-09-26: ESP8266 build passed, RAM 28,844 / 81,920 bytes, flash 273,491 / 1,044,464 bytes. All 15 host tests passed (8 motion/button tests plus 7 pump tests). Pump tests cover phase gating, timing across reversals, preset intervals, cancellation, manual run limits, rollover and delayed loops. Lid is one valid solid with a closed oriented 17,854-triangle mesh. Modeled lid/brass/screw clearances against the original bowl and catcher passed. Multiple exported-mesh views and a section were visually reviewed. Pump wiring was rendered and visually reviewed.

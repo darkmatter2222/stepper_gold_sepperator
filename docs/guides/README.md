@@ -11,3 +11,7 @@ Open [Central_Trap_Gold_POC_v2_Assembly.pdf](Central_Trap_Gold_POC_v2_Assembly.p
 The PDF here is the separately delivered guide recovered from saved project files. The byte-distinct PDF packaged with the original v2 ZIP is preserved inside `mechanical/gold_poc_v2/`. Their extracted text matches; both are retained rather than silently replacing one. The original baseline assembly STEP likewise remains a snapshot, with current replacement STEP files supplied separately.
 
 No regenerated combined assembly PDF or full-assembly STEP is implied. All existing PDFs for this stepper project are preserved. Unrelated centrifuge projects are outside this repository.
+
+## Subsequent base update
+
+Replace original P01 with the [reinforced cable-clearance base](../../mechanical/base_cable_revision/README.md). Reprint only this base; retain P02. The lower supports are offset 45° and angled back to the old top holes. They are wider with flared feet. Lower anchor positions change, and angled braces need slicer support review. The preserved PDF/assembly STEP still show the original base. A separate new base/motor/deck reference STEP is included in the revision folder.
