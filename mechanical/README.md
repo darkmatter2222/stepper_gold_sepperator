@@ -4,7 +4,7 @@ Use the compact **v2** kit with **all three** revisions below. The original snap
 
 | Part | Qty | Current print file |
 |---|---:|---|
-| P01 base | 1 | [STL](base_cable_revision/P01_base_cable_clearance.stl) |
+| P01 base | 1 | [STL](base_cable_revision/P01_BASE_STRAIGHT_VERTICAL_R3.stl) |
 | P02 motor deck | 1 | [STL](gold_poc_v2/STL/P02_motor_deck.stl) |
 | P03 spacer | 4 | [STL](gold_poc_v2/STL/P03_spacer_x4.stl) |
 | P04 catcher | 1 | [STL](gold_poc_v2/STL/P04_catcher.stl) |

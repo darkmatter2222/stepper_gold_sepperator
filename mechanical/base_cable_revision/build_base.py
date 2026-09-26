@@ -34,8 +34,8 @@ for x,y in tops:template=template.cut(cyl(2.25,5,-1,x,y))
 cq.exporters.export(template,str(P/'P02_drill_template.stl'),tolerance=.015,angularTolerance=.06)
 cq.exporters.export(template,str(P/'P02_drill_template.step'))
 assert base.val().isValid() and len(base.solids().vals())==1
-cq.exporters.export(base,str(P/'P01_base_cable_clearance.stl'),tolerance=.015,angularTolerance=.06)
-cq.exporters.export(base,str(P/'P01_base_cable_clearance.step'))
+cq.exporters.export(base,str(P/'P01_BASE_STRAIGHT_VERTICAL_R3.stl'),tolerance=.015,angularTolerance=.06)
+cq.exporters.export(base,str(P/'P01_BASE_STRAIGHT_VERTICAL_R3.step'))
 motor=cq.importers.importStep(str(REF/'H_motor.step'));deck=cq.importers.importStep(str(REF/'P02_motor_deck.step'))
 for x,y in tops:deck=deck.cut(cyl(2.25,6,45,x,y))
 cq.exporters.export(deck,str(P/'P02_drilled_reference.step'))
@@ -49,7 +49,7 @@ for name,sh in [('motor',motor),('P02_with_new_holes',deck)]+[(f'connector_corri
 for x,y in tops:
  screw=cyl(2,8,42,x,y)
  assert base.intersect(screw).val().Volume()<.005
-v,f=stlmesh(P/'P01_base_cable_clearance.stl');_,ix=np.unique(np.round(v,5),axis=0,return_inverse=True);ff=ix.reshape(-1,3)
+v,f=stlmesh(P/'P01_BASE_STRAIGHT_VERTICAL_R3.stl');_,ix=np.unique(np.round(v,5),axis=0,return_inverse=True);ff=ix.reshape(-1,3)
 e=np.concatenate([ff[:,[0,1]],ff[:,[1,2]],ff[:,[2,0]]]);_,back,cnt=np.unique(np.sort(e,axis=1),axis=0,return_inverse=True,return_counts=True)
 assert np.all(cnt==2) and np.all(np.bincount(back,weights=np.where(e[:,0]<e[:,1],1,-1))==0)
 tr=v[f];vol=np.einsum('ij,ij->i',tr[:,0],np.cross(tr[:,1],tr[:,2])).sum()/6;assert vol>0

@@ -1,6 +1,8 @@
 # P01 straight-post base: corrected revision
 
-[Base STL](P01_base_cable_clearance.stl) · [Base STEP](P01_base_cable_clearance.step) · [Drill-template STL](P02_drill_template.stl)
+**Download `P01_BASE_STRAIGHT_VERTICAL_R3.stl`.** Remove the previous angled model from your slicer before importing this file. Its posts run vertically, with no sideways displacement between their top and bottom axes. The earlier reused filename could make downloads difficult to distinguish.
+
+[Base STL](P01_BASE_STRAIGHT_VERTICAL_R3.stl) · [Base STEP](P01_BASE_STRAIGHT_VERTICAL_R3.step) · [Drill-template STL](P02_drill_template.stl)
 
 **This replaces the rejected angled/swirl-post design. All four post axes are now straight and vertical.** The lower and upper ends occupy the same diagonal positions, 45° from the original post layout. The base has no unused anchor holes or cable-tie slots.
 
