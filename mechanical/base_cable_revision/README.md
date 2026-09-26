@@ -1,52 +1,50 @@
-# P01 reinforced base with motor harness clearance
+# P01 straight-post base: corrected revision
 
-[Print STL](P01_base_cable_clearance.stl) · [Editable STEP](P01_base_cable_clearance.step) · [Reference assembly STEP](base_motor_deck_reference.step)
+[Base STL](P01_base_cable_clearance.stl) · [Base STEP](P01_base_cable_clearance.step) · [Drill-template STL](P02_drill_template.stl)
 
-**Reprint P01 only. Keep your existing P02 upper motor deck.** This revision addresses the photographed lower support blocking access to the motor connector. The source and connector-clearance assumptions are included so future changes can use explicit dimensions.
+**This replaces the rejected angled/swirl-post design. All four post axes are now straight and vertical.** The lower and upper ends occupy the same diagonal positions, 45° from the original post layout. The base has no unused anchor holes or cable-tie slots.
 
-![Revised base](review_0.png)
+**Keep your printed P02 upper plate, but drill four new 4.5 mm clearance holes in it.** The old upper screw holes are at the cardinal positions. They cannot fasten straight diagonal posts. This is not a drop-in replacement against an unmodified P02. If you do not want to drill it, do not print this revision on the assumption that its holes already match.
 
-## Changes and preserved interfaces
+![Straight-post base](review_0.png)
 
-| Feature | Original P01 | Revised P01 |
-|---|---|---|
-| Lower post positions | Radius 36 mm, angles 0/90/180/270° | Radius 41 mm, angles 45/135/225/315° |
-| Post section | 9 mm diameter | 12 mm diameter horizontal sections |
-| Post feet | Straight 9 mm post to plate | 18 mm round foot, tapering to 12 mm over Z=4–12 mm |
-| Support route | Straight vertical | Lower diagonal positions to Z=14; angled transition to original top positions at Z=37; vertical to Z=46 |
-| Top mounting positions | Radius 36 mm, angles 0/90/180/270° | **Unchanged** |
-| Top mounting surface | Z=46 mm | **Unchanged** |
-| M4 insert pilot | 5.6 mm diameter, 6.5 mm deep | **Unchanged** |
-| Main base disk | 84 mm diameter × 4 mm thick | **Unchanged**, with rounded foot extensions at the diagonals |
-| Base anchor holes | Four 4.5 mm holes at radius 36, diagonal angles | Four 4.5 mm holes at radius 36, cardinal angles |
-| Cable tie slots | Two 3 × 7 mm slots | Retained |
+## Dimensions and changes
 
-The lower supports move 45°, but their upper ends return to the existing holes. Rotating four straight posts would require a new upper plate. The angled arrangement is what permits this single-part replacement. The feet extend to a nominal 50 mm radius along diagonal directions; the overall X/Y bounds remain approximately 84 × 84 mm. Do not interpret the 84 mm bounds as an unchanged circular footprint.
+| Feature | Corrected geometry |
+|---|---|
+| Main plate | 84 mm diameter, 4 mm thick |
+| Post axes | Radius 35.5 mm, angles 45/135/225/315°; vertical throughout |
+| Post section | 12 mm nominal diameter; original posts were 9 mm |
+| Feet | 16 mm nominal diameter, taper to 12 mm over Z=4–12 |
+| Top height | Z=46 mm, same height as original base |
+| M4 insert pilot | 5.6 mm diameter, 6.5 mm depth |
+| New upper plate holes | 4.5 mm diameter at X/Y = ±25.1023 mm (all four combinations) |
+| Motor clearance | 44 × 44 mm internal relief around assumed 42 × 42 mm motor |
+| Existing deck bosses | Local curved relief at post tops, radius 7.3 mm about the original R47 boss centers |
+| Extra bottom holes | Removed |
 
-The anchor holes in the bottom plate have moved because the new feet occupy their old locations. If the base is screwed to a board, mark new anchor holes. These are separate from the unchanged upper-deck screw locations.
+The inward post/foot faces are locally relieved to clear the motor corners. A small curved relief at each post top clears the existing upper plate's underside mounting boss. These are clearance cuts in straight vertical posts, not angled arms. Feet have rounded plan outlines; no supports should be required for the base in its supplied flat orientation, but inspect your slicer preview.
 
-![Existing deck and motor with connector allowance in gold](assembly_clearance.png)
+## What the old holes were
 
-## Printing and assembly
+The original P01 had two rectangular 3 × 7 mm slots for cable ties/strain relief. No printed part was intended to fit them. Its four round bottom holes were optional base anchoring holes, not required separator assembly interfaces. Both sets are removed from this corrected base. The required M4 insert pockets remain at the post tops.
 
-1. Print the STL at 100%, flat plate on the bed. Millimeters, no scaling. PETG with approximately 0.2 mm layers and at least five perimeters is a starting point. Use generous infill in the supports and feet.
-2. **Review supports in the slicer.** The angled transition is approximately 52° from vertical; its underside may need localized/tree supports from the bed. Do not assume it prints support-free. Keep supports removable from the motor bay and insert holes.
-3. Remove all supports and inspect the feet and sloping braces for poor bonding or voids. This geometry has not been physically load-tested. Increased diameter and flared roots are reinforcement choices, not a measured strength rating.
-4. Install four M4 heat-set inserts at the top, nominally 6 mm OD × 6 mm long in 5.6 mm pilots, matching the original fit coupon/your actual inserts. Seat square and flush. Use new inserts or carefully recovered inserts that remain undamaged.
-5. With power disconnected, remove the old base. Keep the motor and P02 upper deck together. Transfer the original top attachment screws, confirming engagement without bottoming out; the mounting height and holes have not changed.
-6. Route and connect the harness through an open lower bay before tightening everything. Strap the cable to the tie slots with slack at the plug. Check the connector latch and cable bend are accessible without load on the socket.
-7. Hand-turn the shaft/bowl, check all clearances, then perform an empty LOW-speed test. No firmware or water-path change is required.
+## Print and fit
 
-![Connector view; gold block is assumed clearance, not actual plug geometry](connector_front.png)
+1. Print the base flat at 100% in millimeters. PETG, approximately 0.2 mm layers and at least five perimeters are starting settings. Review infill and layer bonding around the feet. No physical strength test has been performed.
+2. Fit four M4 heat-set inserts, assuming approximately 6 mm OD × 6 mm long, after checking your actual inserts against the original coupon. Let them cool; inspect the locally relieved post tops for damage.
+3. Disconnect power and remove the motor and upper components from P02 before drilling. Keep debris out of bearings, motor and electronics.
+4. Print the 3 mm thick drill template. Its four cardinal holes at radius 36 mm align with the old base screw holes. Locate it on the **top face** of P02 using two opposite old holes and temporary M4 screws; clamp the plate flat on scrap wood. The template's center opening clears the central pedestal. Do not confuse its locating holes with the four new diagonal holes.
+5. Mark the four new diagonal centers through the template. Remove the template, check spacing (50.2046 mm square), then drill 4.5 mm through P02's 4 mm plate only. Deburr. The template is a positioning aid, not a hardened drill bushing; do not melt it with a powered bit. Existing outer bosses/catcher holes must remain untouched.
+6. Reassemble using the original four M4 × 10 mm deck-to-base screws in the **new** holes. Confirm insert engagement and that the screws do not bottom out. The four old deck clearance holes are now unused; leaving them open does not change the dry deck's function.
+7. Connect the harness through the open face between posts and confirm plug/latch access and cable bend clearance. Hand-turn the rotor, then test empty at LOW. Firmware is unchanged.
 
-## Clearance and verification
+![Base with motor, drilled deck and connector allowance](assembly_clearance.png)
 
-The assumed motor body is a conservative 42 × 42 × 40 mm square envelope, from Z=6 to Z=46. Connector insertion paths were checked on all four motor faces: **24 mm wide, Z=6–22 mm (16 mm high), extending radially from 21 to 66 mm**. These are design allowances, not measurements of your plug. The photos establish interference, not dimensions. A larger/off-center connector or a stiff cable with a larger bend radius requires checking against the model.
+## Checks and reference files
 
-The original motor and P02 STEP references have no volumetric intersections with the revised base. Nominal top screw axes remain aligned/open. The part is one valid solid; the exported STL has closed, consistently oriented edges and positive volume. Five exported-mesh views plus assembled views are supplied. See [checks.json](checks.json) and [hardware reference](../../docs/HARDWARE.md).
+CAD checks verify one valid base solid, closed/oriented STL, and no volumetric intersection with the motor envelope, drilled deck or 24 mm-wide × 16 mm-high assumed connector corridors (Z=6–22) on any of four faces. Connector dimensions remain unmeasured. Review images show the actual exported STL. `checks.json` records results.
 
-This is a CAD and visual review, not a physical fit, fatigue or vibration test. No guarantees are made for unmeasured connector dimensions or print strength.
+`P02_drilled_reference.step` shows the **existing plate with four new holes**, for inspection, not a request to reprint it. `base_motor_deck_reference.step` includes the corrected base, reference motor and drilled deck. `P02_drill_template.step` is editable template geometry. The main kit's original PDF and assembly STEP remain historical snapshots; these instructions supersede their base attachment step.
 
-## Regeneration
-
-Use Python with CadQuery 2.7, NumPy, SciPy and Pillow. Run `python build_base.py` from this folder. The script loads the original motor/deck references from `../gold_poc_v2/STEP`, exports STL/STEP and the reference assembly, checks intersections/mesh topology, and renders review images. It overwrites generated files in this revision directory. `base_motor_deck_reference.step` contains the new base plus reference motor and existing deck only, not the entire separator.
+Run `python build_base.py` with CadQuery 2.7, NumPy, SciPy and Pillow to regenerate. Original references come from `../gold_poc_v2/STEP`. Print tolerances, actual cable fit and structural performance require physical verification.

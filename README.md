@@ -12,7 +12,7 @@ PlatformIO / Arduino C++ firmware for the **ESP8266 NodeMCU ESP-12E shown in the
 |---|---|
 | [Mechanical index](mechanical/README.md) | Current print list, quantities, revision precedence and archive map |
 | [v2 kit](mechanical/gold_poc_v2/) | All nine original STL parts, individual STEP solids, assembly STEP, CAD generators, calculations, validation and rendered views |
-| [Reinforced cable-clearance base](mechanical/base_cable_revision/) | Current P01 replacement; existing P02 deck retained, lower posts offset 45°, wider braces and flared feet |
+| [Reinforced cable-clearance base](mechanical/base_cable_revision/) | Current P01 replacement; straight diagonal posts; existing P02 retained with four new drilled holes, wider posts and flared feet |
 | [Hardware dimensions and assumptions](docs/HARDWARE.md) | Motor, pump, tubing, bearing, fastener and electronics reference; measured values separated from assumptions |
 | [M3 drive hub](mechanical/hub_m3_revision/) | Current replacement P05, editable source, section and reviewed views |
 | [Brass-inlet lid](mechanical/lid_water/) | Current replacement P08, editable source, section and reviewed views |
@@ -197,8 +197,8 @@ Host tests cover boot-idle behavior, button bounce/long-press/boot-held behavior
 
 Pump tests cover burst timing across reversals, phase gating, preset timing, immediate cancellation, manual time limits, rollover and delayed-loop behavior. This revision passed all 15 host tests and built for `nodemcuv2` (RAM 28,844 bytes; flash 273,491 bytes). Hardware flow and electrical startup behavior remain to be measured.
 
-## P01 motor-harness clearance revision
+## P01 straight-post correction
 
-The photographed motor socket was blocked by an original straight lower post. The [revised P01 base](mechanical/base_cable_revision/README.md) shifts the lower supports 45°, increases horizontal post sections from 9 to 12 mm, and adds 18 mm flared feet. Angled braces return to the original four upper mounting holes, so the existing P02 upper plate is reused. The lower base anchor holes move to the cardinal positions. Check slicer supports for the angled braces. CAD checks use an explicit, unmeasured 24 × 16 mm connector corridor; confirm the actual plug and cable fit. No firmware changes accompany this revision.
+The rejected angled-post version has been replaced with [straight vertical posts](mechanical/base_cable_revision/README.md), rotated to the diagonal positions. Posts are 12 mm nominal diameter with 16 mm flared feet. Unused bottom holes and cable-tie slots are removed. **Keep the existing P02 upper plate, but drill four new 4.5 mm holes using the included template.** No upper-plate reprint is needed; this is not a fit against the unchanged old hole pattern. Local reliefs clear the motor corners and existing upper bosses. See the revision instructions before printing or drilling.
 
-All hardware dimensions and unresolved measurements are centralized in [HARDWARE.md](docs/HARDWARE.md). In particular, the pump body and mounting pattern have not been measured or modeled; its label establishes 12 V / 5 W, not its envelope or flow rate.
+The source, STL/STEP, template, drilled-deck reference STEP, assembly views and checks are committed together. Hardware dimensions and unresolved measurements are in [HARDWARE.md](docs/HARDWARE.md). Pump body dimensions remain unmeasured; no flow or physical strength guarantee is implied.

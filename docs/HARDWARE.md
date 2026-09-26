@@ -58,7 +58,7 @@ The Kamoer NKP family contains variants. No generic family dimensions or adverti
 | Lid tube retaining screw | M3 × 8 | Selected starting hardware; tighten gently to avoid crushing tube |
 | Bowl-to-hub attachment | Three M4 × 8, 29 mm bolt circle | Existing design |
 | Lid attachment | Four M4 × 8 nominal, radius 47 at 45/135/225/315° | Existing design; verify engagement |
-| Base-to-deck interface | Four axes at radius 36, cardinal angles; top surface Z=46; 5.6 × 6.5 insert holes | Preserved by cable-clearance revision; reuse fitted attachment screws after engagement check |
+| Base-to-deck interface | Corrected base: four vertical axes at radius 35.5, diagonal angles; top Z=46; 5.6 × 6.5 insert holes | Requires four new 4.5 mm deck holes at X/Y ±25.1023; reuse original M4 × 10 screws after engagement check |
 
 ## Electronics
 

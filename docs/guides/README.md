@@ -12,6 +12,6 @@ The PDF here is the separately delivered guide recovered from saved project file
 
 No regenerated combined assembly PDF or full-assembly STEP is implied. All existing PDFs for this stepper project are preserved. Unrelated centrifuge projects are outside this repository.
 
-## Subsequent base update
+## Corrected straight-post base
 
-Replace original P01 with the [reinforced cable-clearance base](../../mechanical/base_cable_revision/README.md). Reprint only this base; retain P02. The lower supports are offset 45° and angled back to the old top holes. They are wider with flared feet. Lower anchor positions change, and angled braces need slicer support review. The preserved PDF/assembly STEP still show the original base. A separate new base/motor/deck reference STEP is included in the revision folder.
+Replace P01 using the [straight-post base instructions](../../mechanical/base_cable_revision/README.md). Retain the printed P02 deck and drill four new 4.5 mm holes with the supplied template. The original PDF shows the old cardinal post locations and does not include this drilling step. The angled-post interim revision is superseded. The two original rectangular base slots were for cable ties, not a missing assembly part; these and optional bottom anchor holes are removed.

@@ -1,9 +1,8 @@
 # Validation record
 
-## Reinforced cable-clearance base
+## Corrected straight-post base
 
-P01 revision: valid single CAD solid; closed, oriented STL with positive volume and 21,660 triangles. No volumetric intersection with the original 42 × 42 × 40 mm motor envelope, unchanged P02 deck, or the assumed 24 × 16 mm straight connector corridors on any of four faces. Original upper screw axes/height retained. Five STL views and two reference assembly/connector views were visually reviewed. The connector dimensions are unmeasured allowances. No physical print, cable-bend, strength or fatigue test has been performed. Angled braces require slicer support review. Firmware is unchanged.
-
+The angled-post revision is superseded. Current base has four straight vertical post axes at diagonal positions; existing P02 must receive four new clearance holes. Motor, drilled-deck and four assumed connector-envelope intersections are checked by the generator. STL topology and rendered views are checked. No physical strength/fit test is implied. See the current base `checks.json`; old interim triangle counts and interface claims no longer apply.
 
 ## Current pump/lid revision
 

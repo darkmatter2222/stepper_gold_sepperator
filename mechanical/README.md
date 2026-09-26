@@ -30,6 +30,6 @@ The files are preserved deliverables, not newly manufactured/tested hardware. Ge
 
 The large intermediate mesh-render cache is preserved losslessly as `gold_poc_v2/assets/meshes.json.gz`. Run `gzip -dk assets/meshes.json.gz` from the v2 folder if a rendering script needs the JSON cache; the original generators can also recreate it.
 
-## Cable-clearance base update
+## Straight-post base correction
 
-Use [base_cable_revision](base_cable_revision/README.md) for P01. The existing P02 upper deck is retained. The base offsets its lower supports 45° but preserves their top hole pattern. See [hardware assumptions](../docs/HARDWARE.md) before adapting the motor or pump.
+Use [base_cable_revision](base_cable_revision/README.md) for P01. All post axes are vertical, at the diagonal positions. The printed P02 deck is retained but needs four new 4.5 mm holes using the supplied drill template. The previous angled supports are rejected and superseded. Bottom cable-tie/anchor holes have been removed. Read the complete instructions before printing.

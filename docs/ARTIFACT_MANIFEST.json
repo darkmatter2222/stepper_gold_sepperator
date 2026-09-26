@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "mechanical/README.md",
-      "bytes": 2960,
-      "sha256": "20370b37398fa30ca7b5953528dc8a55a406e95e083b56bf9af4813cb61399a5"
+      "bytes": 3069,
+      "sha256": "17d8c7566efb8fdcac4c5b3bc8510e5ef00b92fd8926ab016475cb1122f7f339"
     },
     {
       "path": "mechanical/archive/gold_poc_v1/01_motor_base.step",
@@ -158,43 +158,63 @@
     },
     {
       "path": "mechanical/base_cable_revision/P01_base_cable_clearance.step",
-      "bytes": 171711,
-      "sha256": "4b0238cf453b947e452c33cfd375c633f40d9f624cd53af5be18c27dfdb72f93"
+      "bytes": 187017,
+      "sha256": "70c6643b7ad188bc0e51ace1da06b9502e0cb1ec5cfa4403b2d3961dfee6917e"
     },
     {
       "path": "mechanical/base_cable_revision/P01_base_cable_clearance.stl",
-      "bytes": 1083084,
-      "sha256": "804326f7dfb0ef05ebdfc0c314afbaab0fb0aeddc8b3f9fcdbd6af26324a3d4f"
+      "bytes": 764384,
+      "sha256": "2d4126b17f3be510a56d474c1ede80c7139bb3de1cce648527dd6fd45f40d4c7"
+    },
+    {
+      "path": "mechanical/base_cable_revision/P02_drill_template.step",
+      "bytes": 50516,
+      "sha256": "72daf29a203fe47b09cdd97cf5b3a15bf5193b4e954e248e099c4a64dba119bc"
+    },
+    {
+      "path": "mechanical/base_cable_revision/P02_drill_template.stl",
+      "bytes": 421684,
+      "sha256": "48a587ee8ac5406955927c992c5823a240f8a71aecf72d83dc0b3dbeb51867a9"
+    },
+    {
+      "path": "mechanical/base_cable_revision/P02_drilled_reference.step",
+      "bytes": 149184,
+      "sha256": "6df329f259f94ff0074fd277603371754f65eb99fc2e46e62c52a604db878f20"
     },
     {
       "path": "mechanical/base_cable_revision/README.md",
-      "bytes": 5412,
-      "sha256": "028b84ddd71132489dd9681f3611a304a5c4c361acf1ab0502b0a07ae0872ae7"
+      "bytes": 5177,
+      "sha256": "ba50ae85cfec0a4310c26e666e6f9807ec806560c096b1267d92ff6030b365f2"
     },
     {
       "path": "mechanical/base_cable_revision/assembly_clearance.png",
-      "bytes": 51622,
-      "sha256": "780376ffd1fcda6bd09a4230df920eff3ed4600c3ec7c6005b30ea4516317289"
+      "bytes": 30065,
+      "sha256": "f64b5250434dd93f0aece78229d33e0245f0c5352b6fd15f75d0697b192ff8ca"
     },
     {
       "path": "mechanical/base_cable_revision/base_motor_deck_reference.step",
-      "bytes": 328771,
-      "sha256": "3a038423c8392ad85deaa894a5cc8cdeef257c8dc2db299ad1a7c5c902fe2cf0"
+      "bytes": 365372,
+      "sha256": "ff56b658698dcac5dffd29fd2641b68f0b554f5141cb89bb6c667930a2b6a4da"
     },
     {
       "path": "mechanical/base_cable_revision/build_base.py",
-      "bytes": 4864,
-      "sha256": "3cf310150ef27d62a84ba531b67ef93e131842efbd7dbed41b63a644ca160cbe"
+      "bytes": 4981,
+      "sha256": "97361dba9e33837406d97099687607d14a538e2c2b52992ce283d53a2a77d8e6"
     },
     {
       "path": "mechanical/base_cable_revision/checks.json",
-      "bytes": 1331,
-      "sha256": "da40884cde47b2b0d4877937615261b438ef04eb1c32cbf995e83691f556dcfa"
+      "bytes": 1524,
+      "sha256": "aed1c55cecc0f8ea071450310b6e53a9b87e619fa2d42b3a9ad1f94173d1e319"
     },
     {
       "path": "mechanical/base_cable_revision/connector_front.png",
-      "bytes": 36038,
-      "sha256": "67ab7082a19b9b8f27f9b4bcea9bda9c27169cd7fc5625d981f7d57ab17fd861"
+      "bytes": 13947,
+      "sha256": "e99865c0c64e993b04c155dd52e18f1b0ba1c75b5f390ca4a04d03b400dae890"
+    },
+    {
+      "path": "mechanical/base_cable_revision/drill_template.png",
+      "bytes": 8108,
+      "sha256": "25a6a6d56dda79ec2d9e0c82343d06f5f7300e58c6a51d16bca39823e310bd8b"
     },
     {
       "path": "mechanical/base_cable_revision/render_support.py",
@@ -203,28 +223,28 @@
     },
     {
       "path": "mechanical/base_cable_revision/review_0.png",
-      "bytes": 49582,
-      "sha256": "67cacb8bffdab50f22c02c7ff5e056a65770bf926a77614637b1218811a89102"
+      "bytes": 22583,
+      "sha256": "32c9a89783ec41ae6f70141cbc3ec0c0d937a08307ee51fca1e0d855e2fe1296"
     },
     {
       "path": "mechanical/base_cable_revision/review_1.png",
-      "bytes": 51083,
-      "sha256": "e012d9507dde629cb44c352f7f31d8e8ba1a94226dbdfcebf3069508d2fca00b"
+      "bytes": 22230,
+      "sha256": "a5313bc6d581c9504b310026f06a79cafd74fa37b34891e9a25f583dfa0813c9"
     },
     {
       "path": "mechanical/base_cable_revision/review_2.png",
-      "bytes": 37427,
-      "sha256": "c262030b76e85ae02a62ea9afe1dbdc4e9f39a81bc544889483ce3a9ec0c94a4"
+      "bytes": 14807,
+      "sha256": "b25e3f78aa18d5109a847c910c16394eba072dd25e4ad3707c41ead43ae57be5"
     },
     {
       "path": "mechanical/base_cable_revision/review_3.png",
-      "bytes": 43135,
-      "sha256": "3f5a361f5d0c4acc54d9a58a70ed09d5a55e2a4e45b3697c37c4929e6d3504e4"
+      "bytes": 21161,
+      "sha256": "7b18bf1f8a29691e87cb9699a3c4b56130c9aa5a345c5788ef726be6ae17f113"
     },
     {
       "path": "mechanical/base_cable_revision/review_4.png",
-      "bytes": 24766,
-      "sha256": "cceeb0bf1df74a263635e2cdb39cb7974afd4e27774948e0b9f461970950f84a"
+      "bytes": 13441,
+      "sha256": "f7c96286d0ec0004bad95c583d20df061efe6b6cc4a9827ab90349e4dc4efefe"
     },
     {
       "path": "mechanical/gold_poc_v2/Central_Trap_Gold_POC_v2_Assembly.pdf",
@@ -898,8 +918,8 @@
     },
     {
       "path": "docs/guides/README.md",
-      "bytes": 2030,
-      "sha256": "432d3c58998b1bd7df63c6d261aa5b248e82e4c646615460e4afa2f9f0bcf6de"
+      "bytes": 2039,
+      "sha256": "e7d43444076830162e531f41f462546bbb2f7984ffe765d4af8efbbfea9092db"
     },
     {
       "path": "releases/original_packages/Central_Trap_Gold_POC_v1.zip",
