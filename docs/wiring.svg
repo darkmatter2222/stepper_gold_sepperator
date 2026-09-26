@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="930" viewBox="0 0 1280 930"><rect width="1280" height="930" fill="#f7fafc"/>
+<text x="35" y="40" font-family="Arial,sans-serif" font-size="28" fill="#193448">NodeMCU ESP8266 + A4988 + one button</text>
+<text x="35" y="73" font-family="Arial,sans-serif" font-size="16" fill="#193448">Logical connections only. Verify driver model and pin labels; this is NOT the physical carrier pin order.</text>
+<rect x="35" y="110" width="310" height="340" rx="10" fill="white" stroke="#45687a" stroke-width="2"/>
+<text x="50" y="140" font-family="Arial,sans-serif" font-size="21" fill="#193448">NodeMCU ESP-12E</text>
+<rect x="500" y="110" width="310" height="570" rx="10" fill="white" stroke="#45687a" stroke-width="2"/>
+<text x="515" y="140" font-family="Arial,sans-serif" font-size="21" fill="#193448">A4988 (verify chip)</text>
+<text x="55" y="173" font-family="Arial,sans-serif" font-size="18" fill="#193448">D5 / GPIO14</text>
+<text x="518" y="173" font-family="Arial,sans-serif" font-size="18" fill="#193448">STEP</text>
+<polyline points="345,180 500,180" fill="none" stroke="#1c7fa0" stroke-width="3"/>
+<text x="55" y="218" font-family="Arial,sans-serif" font-size="18" fill="#193448">D6 / GPIO12</text>
+<text x="518" y="218" font-family="Arial,sans-serif" font-size="18" fill="#193448">DIR</text>
+<polyline points="345,225 500,225" fill="none" stroke="#8264ac" stroke-width="3"/>
+<text x="55" y="263" font-family="Arial,sans-serif" font-size="18" fill="#193448">D7 / GPIO13</text>
+<text x="518" y="263" font-family="Arial,sans-serif" font-size="18" fill="#193448">EN (active LOW)</text>
+<polyline points="345,270 500,270" fill="none" stroke="#b26d18" stroke-width="3"/>
+<text x="55" y="308" font-family="Arial,sans-serif" font-size="18" fill="#193448">3V3</text>
+<text x="518" y="308" font-family="Arial,sans-serif" font-size="18" fill="#193448">VDD (3.3 V)</text>
+<polyline points="345,315 500,315" fill="none" stroke="#c94242" stroke-width="3"/>
+<text x="55" y="353" font-family="Arial,sans-serif" font-size="18" fill="#193448">GND</text>
+<text x="518" y="353" font-family="Arial,sans-serif" font-size="18" fill="#193448">Logic GND</text>
+<polyline points="345,360 500,360" fill="none" stroke="#303d47" stroke-width="3"/>
+<text x="55" y="414" font-family="Arial,sans-serif" font-size="18" fill="#193448">D2 / GPIO4</text>
+<polyline points="345,420 390,420 390,555 285,555" fill="none" stroke="#24799c" stroke-width="3"/>
+<rect x="35" y="505" width="250" height="105" rx="10" fill="white" stroke="#45687a" stroke-width="2"/>
+<text x="50" y="535" font-family="Arial,sans-serif" font-size="21" fill="#193448">Normally-open button</text>
+<text x="50" y="580" font-family="Arial,sans-serif" font-size="16" fill="#193448">Press connects D2 to GND</text>
+<polyline points="35,555 18,555 18,775 1230,775" fill="none" stroke="#303d47" stroke-width="3"/>
+<text x="40" y="803" font-family="Arial,sans-serif" font-size="17" fill="#193448">COMMON GROUND: USB / NodeMCU GND + driver GND + motor-supply negative</text>
+<polyline points="425,270 425,150" fill="none" stroke="#b26d18" stroke-width="3"/>
+<rect x="418" y="125" width="14" height="25" fill="white" stroke="#b26d18" stroke-width="2"/>
+<text x="370" y="104" font-family="Arial,sans-serif" font-size="15" fill="#193448">10k to 3V3</text>
+<text x="518" y="425" font-family="Arial,sans-serif" font-size="17" fill="#193448">MS1 + MS2 + MS3 → 3V3</text>
+<text x="518" y="465" font-family="Arial,sans-serif" font-size="17" fill="#193448">RESET + SLEEP → 3V3</text>
+<text x="518" y="504" font-family="Arial,sans-serif" font-size="16" fill="#193448">Tie all five pins HIGH.</text>
+<text x="518" y="530" font-family="Arial,sans-serif" font-size="16" fill="#193448">MS pins select 1/16 stepping.</text>
+<rect x="995" y="140" width="245" height="315" rx="10" fill="white" stroke="#45687a" stroke-width="2"/>
+<text x="1010" y="170" font-family="Arial,sans-serif" font-size="21" fill="#193448">Bipolar stepper</text>
+<text x="740" y="197" font-family="Arial,sans-serif" font-size="17" fill="#193448">1A</text>
+<polyline points="810,205 995,205" fill="none" stroke="#51865a" stroke-width="3"/>
+<text x="1010" y="197" font-family="Arial,sans-serif" font-size="16" fill="#193448">Coil A end 1</text>
+<text x="740" y="247" font-family="Arial,sans-serif" font-size="17" fill="#193448">1B</text>
+<polyline points="810,255 995,255" fill="none" stroke="#51865a" stroke-width="3"/>
+<text x="1010" y="247" font-family="Arial,sans-serif" font-size="16" fill="#193448">Coil A end 2</text>
+<text x="740" y="337" font-family="Arial,sans-serif" font-size="17" fill="#193448">2A</text>
+<polyline points="810,345 995,345" fill="none" stroke="#9b5d86" stroke-width="3"/>
+<text x="1010" y="337" font-family="Arial,sans-serif" font-size="16" fill="#193448">Coil B end 1</text>
+<text x="740" y="387" font-family="Arial,sans-serif" font-size="17" fill="#193448">2B</text>
+<polyline points="810,395 995,395" fill="none" stroke="#9b5d86" stroke-width="3"/>
+<text x="1010" y="387" font-family="Arial,sans-serif" font-size="16" fill="#193448">Coil B end 2</text>
+<text x="1010" y="435" font-family="Arial,sans-serif" font-size="15" fill="#193448">Find pairs with ohmmeter.</text>
+<text x="520" y="590" font-family="Arial,sans-serif" font-size="18" fill="#193448">VMOT</text>
+<text x="520" y="649" font-family="Arial,sans-serif" font-size="18" fill="#193448">Motor GND</text>
+<rect x="985" y="560" width="255" height="140" rx="10" fill="white" stroke="#45687a" stroke-width="2"/>
+<text x="1000" y="590" font-family="Arial,sans-serif" font-size="21" fill="#193448">Motor supply</text>
+<text x="1000" y="620" font-family="Arial,sans-serif" font-size="16" fill="#193448">+12 V (verify suitability)</text>
+<text x="1000" y="670" font-family="Arial,sans-serif" font-size="16" fill="#193448">Negative / GND</text>
+<polyline points="810,600 985,600" fill="none" stroke="#c94242" stroke-width="3"/>
+<polyline points="810,660 900,660 900,775" fill="none" stroke="#303d47" stroke-width="3"/>
+<polyline points="985,675 955,675 955,775" fill="none" stroke="#303d47" stroke-width="3"/>
+<polyline points="865,600 865,619" fill="none" stroke="#c94242" stroke-width="3"/>
+<polyline points="850,620 880,620" fill="none" stroke="#303d47" stroke-width="3"/>
+<polyline points="850,632 880,632" fill="none" stroke="#303d47" stroke-width="3"/>
+<polyline points="865,633 865,660" fill="none" stroke="#303d47" stroke-width="3"/>
+<text x="875" y="617" font-family="Arial,sans-serif" font-size="16" fill="#193448">+</text>
+<text x="610" y="716" font-family="Arial,sans-serif" font-size="17" fill="#193448">100 µF, ≥25 V for 12 V supply</text>
+<text x="610" y="740" font-family="Arial,sans-serif" font-size="16" fill="#193448">Across VMOT/GND, close to driver.</text>
+<polyline points="470,360 470,775" fill="none" stroke="#303d47" stroke-width="3"/>
+<text x="35" y="850" font-family="Arial,sans-serif" font-size="19" fill="#a33333">NodeMCU power: USB. Never connect motor voltage to 3V3, GPIO or USB.</text>
+<text x="35" y="882" font-family="Arial,sans-serif" font-size="17" fill="#193448">Set driver current limit before running. Power OFF before changing motor wiring. OLED is not used.</text>
+<circle cx="425" cy="270" r="4" fill="#b26d18"/><circle cx="470" cy="360" r="4" fill="#303d47"/><circle cx="470" cy="775" r="4" fill="#303d47"/><circle cx="900" cy="775" r="4" fill="#303d47"/><circle cx="955" cy="775" r="4" fill="#303d47"/></svg>
