@@ -1,8 +1,12 @@
 # Stepper gold separator
 
-PlatformIO / Arduino C++ firmware for the **ESP8266 NodeMCU ESP-12E shown in the hardware photo**, an assumed A4988 STEP/DIR carrier, and one momentary button. This is not an ESP32 build. It repeatedly rocks the bowl, pauses to settle, performs a ramped forward spin, pauses, and repeats until stopped.
+PlatformIO / Arduino C++ firmware for the **ESP8266 NodeMCU ESP-12E shown in the hardware photo**, an assumed A4988 STEP/DIR carrier, one momentary button, and a switched 12 V Kamoer water pump. This is not an ESP32 build. It repeatedly rocks the bowl, pauses to settle, performs a ramped forward spin, pauses, and repeats until stopped.
 
 **Starts stopped every time.** No unexpected motion after reset, firmware upload or power restoration. This firmware implements experimental motion, not proven gold recovery. The previous 64 mm bowl design does not establish an optimal speed. HIGH is a relative preset name, not a validated operating limit.
+
+## Brass-tube lid and water pump
+
+Print the [replacement lid STL](mechanical/lid_water/P08_lid_brass_4mm.stl), then follow the [illustrated assembly guide](mechanical/lid_water/README.md) and [12 V pump guide](docs/PUMP.md). The supported 4 mm brass tube seats on a shoulder so it cannot fall into the bowl.
 
 ## Wire first
 
@@ -16,6 +20,7 @@ See **[the wiring guide](docs/WIRING.md)** and **[the wiring diagram](docs/wirin
 | Direction | D6 | 12 | DIR |
 | Enable | D7 | 13 | EN, plus external 10k pull-up to 3V3 |
 | Button | D2 | 4 | Normally-open button to GND |
+| Water pump | D1 | 5 | 330 ohm to AO3400A gate; see pump guide |
 | Logic supply | 3V3 | | VDD, MS1, MS2, MS3, RESET, SLEEP |
 | Common reference | GND | | Driver logic GND and motor-supply negative |
 
@@ -50,7 +55,7 @@ The board/framework choice matches your [ESP8266 seismometer configuration](http
 
 While running, a newly selected mode is **queued until the next complete rock/settle/spin/rest batch**. It never changes speed abruptly mid-motion. The onboard LED flashes 1, 2 or 3 times per two seconds for the selected mode. Serial reports the selected and currently active mode separately. The LED pattern indicates mode, not running status.
 
-Serial commands: `1`, `2`, `3` select; `s` start; `x` controlled stop; `!` immediately disables the driver; `?` requests status. No newline required. Immediate disable removes holding torque and the bowl can coast. The button is a software control, not a physical emergency disconnect.
+Serial commands: `1`, `2`, `3` select; `s` start; `x` controlled stop; `!` immediately disables the driver; `?` requests status. `p` primes water for 3 seconds while idle; `c` runs a 30-second calibration while idle; `w` toggles automatic water. No newline required. Immediate disable removes holding torque and the bowl can coast. The button is a software control, not a physical emergency disconnect.
 
 ## Initial presets
 
@@ -70,7 +75,7 @@ At the end of each spin, the stopped location becomes the next local rocking cen
 
 ## Tuning and first run
 
-Edit `include/Config.h` for pins, motor step count, microstep count, direction inversion and presets. Settings are compile-time and are not written repeatedly to flash. No Wi-Fi, cloud service or phone is needed. The peristaltic pump remains independently controlled.
+Edit `include/Config.h` for pins, motor step count, microstep count, direction inversion and presets. Settings are compile-time and are not written repeatedly to flash. No Wi-Fi, cloud service or phone is needed. Water bursts are integrated into the rocking phase; see [pump wiring and calibration](docs/PUMP.md).
 
 1. Verify motor coil pairs, driver identity, supply polarity and current limit as described in the wiring guide. The exact Moons motor's phase-current rating is not known from the photo.
 2. Hand-turn the assembled bowl and check the new M3 hub screw and bearing clearance. Secure the cover and catch all overflow.
@@ -83,3 +88,5 @@ No encoder, stall detection, current measurement, temperature sensor or blocked-
 ## Validation
 
 Host tests cover boot-idle behavior, button bounce/long-press/boot-held behavior, millisecond rollover, queued mode transitions, every normal stop phase, immediate disable, spin-distance calculation, and coordinate resets over 1000 batches. The fake motor tests control logic; they do not establish physical pulse timing or recovery. GitHub Actions runs those tests and builds the ESP8266 firmware. See [sources and engineering notes](docs/SOURCES.md).
+
+Pump tests cover burst timing across reversals, phase gating, preset timing, immediate cancellation, manual time limits, rollover and delayed-loop behavior. This revision passed all 15 host tests and built for `nodemcuv2` (RAM 28,844 bytes; flash 273,491 bytes). Hardware flow and electrical startup behavior remain to be measured.

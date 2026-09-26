@@ -1,0 +1,18 @@
+{
+  "valid_single_solid": true,
+  "closed_oriented_stl": true,
+  "triangles": 17854,
+  "volume_mm3": 19178.40015935512,
+  "lid_body_diameter_mm": 86,
+  "feed_opening_mm": 26,
+  "tube_socket_mm": 4.2,
+  "tube_support_length_mm": 18,
+  "flow_passage_mm": 3.2,
+  "tube_bottom_above_lid_underside_mm": 1,
+  "overall_print_height_mm": 19,
+  "collision_check": {
+    "intersections": [],
+    "references": "/workspace/scratch/3c33fd07ed4c/gold_poc_v2/STEP",
+    "note": "Bowl exterior is rotationally symmetric; no inward projecting lid features."
+  }
+}

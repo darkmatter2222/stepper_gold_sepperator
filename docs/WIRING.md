@@ -39,3 +39,7 @@ Use an ohmmeter to find the two independent pairs with winding resistance. Wire 
 For a verified A4988, the nominal current-limit equation is `I_limit = VREF / (8 * Rsense)`. Read the actual sense resistor value on your carrier. Examples: R050 means 0.050 ohm, R100 means 0.100 ohm. For illustration only, a 0.50 A limit gives VREF = 0.20 V with R050, or 0.40 V with R100. These are not a recommended rating for this unidentified motor/clone. Choose a limit no higher than the motor's verified phase rating and the carrier's thermal capability. Follow the carrier manufacturer's adjustment procedure; a slip of the probe or screwdriver can short adjacent pads.
 
 Firmware cannot adjust A4988 current through STEP/DIR. Supply current is not the same as winding current. The heatsink alone does not establish continuous-current capability; ensure it cannot short exposed pins and check cooling. Coils remain enabled during running settle/rest periods; they are disabled after a stop.
+
+## Peristaltic water pump
+
+D1 / GPIO5 now controls the 12 V Kamoer NKP-DC-S10B through an AO3400A MOSFET. Follow the complete [pump connections, protection and calibration guide](PUMP.md). Never connect the pump directly to a GPIO.
