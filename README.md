@@ -98,23 +98,25 @@ The board/framework choice matches your [ESP8266 seismometer configuration](http
 | Hold for 0.8 seconds while running | Decelerate to stop, then disable motor coils |
 | Hold button during boot | No start; release it before normal operation |
 
-While running, a newly selected mode is **queued until the next complete rock/settle/spin/rest batch**. It never changes speed abruptly mid-motion. The onboard LED flashes 1, 2 or 3 times per two seconds for the selected mode. Serial reports the selected and currently active mode separately. The LED pattern indicates mode, not running status.
+While running, a newly selected mode is **queued until the next complete rock/settle/spin/rest batch**. It never changes speed abruptly mid-motion. The onboard LED flashes 1, 2 or 3 times per two seconds for the selected mode. Serial reports the selected and currently active mode separately at the next motion pause. The LED pattern indicates mode, not running status.
 
 Serial commands: `1`, `2`, `3` select; `s` start; `x` controlled stop; `!` immediately disables the driver; `?` requests status. `p` primes water for 3 seconds while idle; `c` runs a 30-second calibration while idle; `w` toggles automatic water. No newline required. Immediate disable removes holding torque and the bowl can coast. The button is a software control, not a physical emergency disconnect.
 
-## Initial presets
+## Loaded-bed trial presets (2026-09-27)
 
-| Preset | Rock amplitude | Rock speed ceiling | Rock accel/decel | Rock cycles | Settle | Spin speed | Spin accel/decel | At-speed hold | Post-spin rest |
+These replace the original gentle commissioning settings. Read [motion research, calculations and test procedure](docs/MOTION.md) before testing. They are hypotheses for physical trials, not proven recovery settings or motor ratings.
+
+| Preset | Rock amplitude | Speed ceiling | Accel/decel | Cycles | Settle | Spin | Spin accel/decel | Hold | Rest |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| LOW | ±5° | 60°/s | 120°/s² | 6 | 3 s | 10 rpm | 120°/s² | 1 s | 2 s |
-| MEDIUM | ±10° | 90°/s | 240°/s² | 8 | 2.5 s | 20 rpm | 180°/s² | 1 s | 2 s |
-| HIGH | ±15° | 120°/s | 360°/s² | 10 | 2 s | 30 rpm | 240°/s² | 1 s | 2 s |
+| LOW | ±12° | 180°/s | 2400°/s² | 18 | 3 s | 30 rpm | 600°/s² | 0.5 s | 2 s |
+| MEDIUM | ±16° | 270°/s | 4800°/s² | 24 | 3 s | 45 rpm | 900°/s² | 0.5 s | 2 s |
+| HIGH | ±20° | 360°/s | 7200°/s² | 30 | 3 s | 60 rpm | 1200°/s² | 0.5 s | 2 s |
 
-A rock cycle visits +amplitude then -amplitude. After all cycles the bowl returns to its local center. Each move accelerates and decelerates to rest before reversing. Short rock moves use triangular velocity profiles and may never reach the speed ceiling; these are **not fixed-frequency sinusoidal oscillations**. For the interior full swings, approximate periods are 1.15, 1.15 and 1.15 seconds, excluding the first/last half moves and pauses.
+Rock acceleration is **20× the previous value in every mode**. Interior full-cycle frequencies are approximately **2.40 / 2.86 / 3.10 Hz** (formerly 0.87 Hz). Moves brake to zero before reversing; finite acceleration, no jerk limiting. Each cycle visits +amplitude then -amplitude and the batch returns to center. Increased cycle counts retain roughly 8–10 seconds of agitation rather than shortening the agitation stage when speeding it up.
 
-Spin motion uses a trapezoidal velocity profile. Acceleration and deceleration are finite; jerk is not limited (this is not an S-curve). At the nominal settings total spin duration is approximately 2.0 / 2.33 / 2.5 seconds including the 1-second plateau. Timing is approximate due to step quantization and cooperative scheduling. The spin distance is `v*v/a + v*hold`, in microsteps. The library handles the corresponding ramp and braking. There are no blocking travel loops or dwell delays.
+Spin is deliberately limited to **30 / 45 / 60 RPM**, with about 1.1 seconds total per burst including ramps. A 300 RPM spin opposes center collection and is not enabled. The distance remains `v*v/a + v*hold` in microsteps.
 
-At 1.8° full steps and 1/16 microstepping, scaling is 3200 pulses/revolution; HIGH spin requires 1600 pulses/second. Verify that your motor is actually 200 full steps/revolution and physically wire all three A4988 microstep inputs HIGH. Microstepping smooths commands; it does not guarantee mechanical angular accuracy.
+Keep the existing **200 full steps/revolution, 1/16 microstep configuration** (verify the actual motor and driver). Peak requested rate is 3200 pulses/s; configuration rejects rates above the selected 4000 pulses/s software budget. This budget is not measured ESP8266 timing performance. No rewiring is required. Confirm real motion using a shaft/bowl mark: this open-loop firmware cannot detect a loose hub or missed steps.
 
 At the end of each spin, the stopped location becomes the next local rocking center. There is no homing sensor and no need to return to the original absolute shaft angle. Coordinates reset only at rest to avoid position accumulation over hours. No random stages are enabled, so experiments can be repeated and compared.
 
@@ -195,7 +197,7 @@ No encoder, stall detection, current measurement, temperature sensor or blocked-
 
 Host tests cover boot-idle behavior, button bounce/long-press/boot-held behavior, millisecond rollover, queued mode transitions, every normal stop phase, immediate disable, spin-distance calculation, and coordinate resets over 1000 batches. The fake motor tests control logic; they do not establish physical pulse timing or recovery. GitHub Actions runs those tests and builds the ESP8266 firmware. See [sources and engineering notes](docs/SOURCES.md).
 
-Pump tests cover burst timing across reversals, phase gating, preset timing, immediate cancellation, manual time limits, rollover and delayed-loop behavior. This revision passed all 15 host tests and built for `nodemcuv2` (RAM 28,844 bytes; flash 273,491 bytes). Hardware flow and electrical startup behavior remain to be measured.
+Pump tests cover burst timing across reversals, phase gating, preset timing, immediate cancellation, manual time limits, rollover and delayed-loop behavior. The original pump revision passed 15 host tests and built for `nodemcuv2` (RAM 28,844 bytes; flash 273,491 bytes). See [validation](docs/VALIDATION.md) for the current motion revision. Hardware flow and electrical startup behavior remain to be measured.
 
 ## P01 straight-post correction
 

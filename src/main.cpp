@@ -91,8 +91,8 @@ void loop() {
     reportPending = true;
   if (controller.state() != before)
     reportPending = true;
-  // Nonblocking small status line; no printf on every step.
-  if (reportPending && Serial.availableForWrite() >= 96) {
+  // Defer formatting/transmission until rest; faster strokes need a tight run() cadence.
+  if (reportPending && !motor.isRunning() && Serial.availableForWrite() >= 96) {
     char line[96];
     int n = snprintf(line, sizeof(line), "%s selected=%s active=%s water=%s auto=%u manual=%u\n",
                      phaseName(controller.state()), cfg::PRESETS[controller.selected()].name,

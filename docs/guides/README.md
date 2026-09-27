@@ -17,3 +17,7 @@ No regenerated combined assembly PDF or full-assembly STEP is implied. All exist
 Replace P01 using the [straight-post base instructions](../../mechanical/base_cable_revision/README.md). Retain the printed P02 deck and drill four new 4.5 mm holes with the supplied template. The original PDF shows the old cardinal post locations and does not include this drilling step. The angled-post interim revision is superseded. The two original rectangular base slots were for cable ties, not a missing assembly part; these and optional bottom anchor holes are removed.
 
 The current electrical guide now uses a shared 12 V supply and L7805 5 V regulator feeding NodeMCU VIN. Follow the [combined wiring diagram](../wiring.svg) and [power/rail guide](../WIRING.md), including the USB power-source changeover procedure.
+
+## Motion settings amendment (2026-09-27)
+
+The original guide's gentle motion settings are superseded by [MOTION.md](../MOTION.md) and the root README. Current firmware uses 20× rocking acceleration and 30/45/60 RPM spin trials. Existing PDFs and ZIPs remain historical snapshots.

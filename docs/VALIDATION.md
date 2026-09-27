@@ -35,3 +35,12 @@ Physical checks still required: obscured regulator marking/pinout, driver identi
 Replaced the AO3400A circuit with IRF9540N high-side switching, 2N3904 level shifting and a 1N5822 flyback diode using photographed stock. Verified reference manufacturer pinouts/ratings and calculated gate drive, base current and nominal conduction loss. Updated the standalone and combined diagrams, their generators, connection tables and firmware comments. Active-HIGH firmware behavior is unchanged. SVGs were XML-parsed, regenerated for repeatability and the pump PNG was visually inspected; git diff whitespace checks passed. No new firmware test or physical pump test is claimed.
 
 Before operation, verify the actual kit components/pinouts, reset-OFF behavior, gate voltages, pump startup current and temperature using the procedure in PUMP.md.
+
+## Loaded-bed motion revision (2026-09-27)
+
+- PlatformIO native tests: 16/16 passed (9 control/button/envelope, 7 pump). Host GCC with `-Wall -Wextra -Werror` also passed both suites.
+- Real AccelStepper 1.64 source, simulated clock/GPIO: all three modes reached their requested spin speed, completed the batch and matched approximate analytical period/burst duration within 50 ms. Recurring rocking frequencies 2.463/2.935/3.165 Hz; spin 1.077/1.081/1.084 s. This is a library command simulation, not measured board timing or mechanics. Added the check to CI.
+- Compile-time requested-pulse-rate budget and regression checks reject 300 RPM / oversized rocking ceilings. Existing controlled stop, emergency release, mode queuing and pump gating tests remain passing.
+- CAD P06 source profile inspected; no geometry changed. Documented loaded-sump limitations, research, calculations and controlled physical trials in MOTION.md; amended guide index so archived settings are not mistaken for current presets.
+- No physical hardware, torque, missed-step, flow or recovery validation was performed.
+- ESP8266 `pio run -e nodemcuv2`: PASS; RAM 28,844/81,920 bytes, flash 273,507/1,044,464 bytes. PlatformIO rejected invalid mirror checksums and used alternate downloads; no verification was bypassed. Framework elf2bin.py emitted Python escape-sequence warnings; firmware linked and BIN generation succeeded.

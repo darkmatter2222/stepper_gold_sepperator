@@ -11,3 +11,7 @@ jobs:
       - run: pip install platformio==6.2.0
       - run: pio test -e native
       - run: pio run -e nodemcuv2
+      - name: Check real AccelStepper motion timing with simulated clock
+        run: |
+          g++ -std=c++11 -Wall -Wextra -DARDUINO=100 -Itools/motion_sim -Iinclude -I.pio/libdeps/nodemcuv2/AccelStepper/src tools/motion_sim/main.cpp .pio/libdeps/nodemcuv2/AccelStepper/src/AccelStepper.cpp -o /tmp/motion-sim
+          /tmp/motion-sim

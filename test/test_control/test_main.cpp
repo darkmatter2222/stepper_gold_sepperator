@@ -38,7 +38,7 @@ void sequence_and_queue() {
   TEST_ASSERT_EQUAL_INT((int)Phase::Wake, (int)c.state());
   c.tick(10);
   t = 10;
-  TEST_ASSERT_EQUAL(44, m.target);
+  TEST_ASSERT_EQUAL(107, m.target);
   c.select(2); // Must keep LOW through complete cycle.
   unsigned neg = 0;
   Phase old = c.state();
@@ -48,17 +48,17 @@ void sequence_and_queue() {
       ++neg;
     old = c.state();
   }
-  TEST_ASSERT_EQUAL(6, neg);
+  TEST_ASSERT_EQUAL(18, neg);
   TEST_ASSERT_EQUAL(0, c.active());
-  const float v = 10 * 6 * cfg::STEPS_PER_DEGREE, a = 120 * cfg::STEPS_PER_DEGREE;
-  TEST_ASSERT_EQUAL(lroundf(v * v / a + v), m.target);
+  const float v = 30 * 6 * cfg::STEPS_PER_DEGREE, a = 600 * cfg::STEPS_PER_DEGREE;
+  TEST_ASSERT_EQUAL(lroundf(v * v / a + v * 0.5f), m.target);
   while (c.state() != Phase::Rest && t < 40000)
     c.tick(++t);
   TEST_ASSERT_EQUAL(0, m.pos);
   t += 2000;
   c.tick(t);
   TEST_ASSERT_EQUAL(2, c.active());
-  TEST_ASSERT_EQUAL(133, m.target);
+  TEST_ASSERT_EQUAL(178, m.target);
 }
 void stop_and_disable() {
   Motor m;
@@ -148,8 +148,42 @@ void thousands_of_batches() {
   }
   TEST_ASSERT_EQUAL(1000, rests);
 }
+// Check physical command budget and all mode profiles, independent of the fake
+// motor's deliberately untimed single-step run(). This does not prove real RPM.
+void motion_envelope() {
+  for (unsigned i = 0; i < cfg::PRESET_COUNT; ++i) {
+    const auto &p = cfg::PRESETS[i];
+    const float travel = 2 * p.amplitudeDeg;
+    const float halfPeriod = travel / p.speedDegS + p.speedDegS / p.accelDegS2;
+    TEST_ASSERT_TRUE(travel >= p.speedDegS * p.speedDegS / p.accelDegS2);
+    TEST_ASSERT_TRUE(0.5f / halfPeriod >= 2.3f && 0.5f / halfPeriod <= 3.2f);
+    TEST_ASSERT_TRUE(p.spinRpm <= 60);
+    TEST_ASSERT_TRUE(p.speedDegS * cfg::STEPS_PER_DEGREE <= cfg::MAX_STEP_RATE);
+    Motor m;
+    Controller<Motor> c(m);
+    c.select(i);
+    c.start(0);
+    c.tick(10);
+    TEST_ASSERT_FLOAT_WITHIN(0.1f, p.accelDegS2 * cfg::STEPS_PER_DEGREE, m.accel);
+    uint32_t t = 10;
+    while (c.state() != Phase::Spin && t < 60000) c.tick(++t);
+    TEST_ASSERT_EQUAL_INT((int)Phase::Spin, (int)c.state());
+    TEST_ASSERT_FLOAT_WITHIN(0.1f, p.spinRpm * 6 * cfg::STEPS_PER_DEGREE, m.speed);
+    TEST_ASSERT_FLOAT_WITHIN(0.1f, p.spinAccelDegS2 * cfg::STEPS_PER_DEGREE, m.accel);
+    c.stop(t);
+    for (unsigned j=0; j<10; ++j) c.tick(++t);
+    TEST_ASSERT_FALSE(c.running());
+  }
+  auto invalid = cfg::PRESETS[2];
+  invalid.spinRpm = 300;
+  TEST_ASSERT_FALSE(cfg::valid(invalid));
+  invalid = cfg::PRESETS[2];
+  invalid.speedDegS = 1000;
+  TEST_ASSERT_FALSE(cfg::valid(invalid));
+}
 int main() {
   UNITY_BEGIN();
+  RUN_TEST(motion_envelope);
   RUN_TEST(boot_idle);
   RUN_TEST(sequence_and_queue);
   RUN_TEST(stop_and_disable);

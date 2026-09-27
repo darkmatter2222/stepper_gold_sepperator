@@ -23,10 +23,12 @@ struct Preset {
   float spinRpm, spinAccelDegS2, spinHoldSeconds;
   uint32_t restMs;
 };
-// Exploratory settings, NOT calibrated gold-recovery recipes or rated limits.
-constexpr Preset PRESETS[] = {{"LOW", 5, 60, 120, 6, 3000, 10, 120, 1.0f, 2000},
-                              {"MEDIUM", 10, 90, 240, 8, 2500, 20, 180, 1.0f, 2000},
-                              {"HIGH", 15, 120, 360, 10, 2000, 30, 240, 1.0f, 2000}};
+// Experimental loaded-bed trials; see docs/MOTION.md. Not motor ratings.
+// Keep 1/16 wiring. Bound requested pulse rate for the cooperative step loop.
+constexpr float MAX_STEP_RATE = 4000;
+constexpr Preset PRESETS[] = {{"LOW", 12, 180, 2400, 18, 3000, 30, 600, 0.5f, 2000},
+                              {"MEDIUM", 16, 270, 4800, 24, 3000, 45, 900, 0.5f, 2000},
+                              {"HIGH", 20, 360, 7200, 30, 3000, 60, 1200, 0.5f, 2000}};
 constexpr unsigned PRESET_COUNT = sizeof(PRESETS) / sizeof(PRESETS[0]);
 static_assert(sizeof(PUMP_SCHEDULE) / sizeof(PUMP_SCHEDULE[0]) == PRESET_COUNT,
               "Pump preset mismatch");
@@ -42,8 +44,10 @@ static_assert(PUMP_PIN != STEP_PIN && PUMP_PIN != DIR_PIN && PUMP_PIN != ENABLE_
 static_assert(FULL_STEPS > 0 && MICROSTEPS > 0, "Invalid step scaling");
 constexpr bool valid(Preset p) {
   return p.amplitudeDeg > 0 && p.speedDegS > 0 && p.accelDegS2 > 0 && p.cycles > 0 &&
-         p.spinRpm > 0 && p.spinAccelDegS2 > 0 && p.spinHoldSeconds >= 0;
+         p.spinRpm > 0 && p.spinAccelDegS2 > 0 && p.spinHoldSeconds >= 0 &&
+         p.speedDegS * STEPS_PER_DEGREE <= MAX_STEP_RATE &&
+         p.spinRpm * 6 * STEPS_PER_DEGREE <= MAX_STEP_RATE;
 }
 static_assert(valid(PRESETS[0]) && valid(PRESETS[1]) && valid(PRESETS[2]),
-              "Presets require positive speeds, acceleration, amplitude and cycles");
+              "Invalid preset or requested pulse rate exceeds MAX_STEP_RATE");
 } // namespace cfg
