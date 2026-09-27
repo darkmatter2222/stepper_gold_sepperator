@@ -19,7 +19,7 @@ void cancelPump() {
 bool reportPending = true;
 void setup() {
   digitalWrite(cfg::PUMP_PIN, LOW);
-  pinMode(cfg::PUMP_PIN, OUTPUT); // External 100k gate-source resistor holds OFF before setup.
+  pinMode(cfg::PUMP_PIN, OUTPUT); // External 100k base pulldown + 10k gate-source pull-up hold OFF before setup.
   digitalWrite(cfg::ENABLE_PIN, HIGH);
   pinMode(cfg::ENABLE_PIN, OUTPUT);
   digitalWrite(cfg::STEP_PIN, LOW);

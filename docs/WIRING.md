@@ -84,4 +84,4 @@ Firmware cannot adjust A4988 current through STEP/DIR. Supply current is not the
 
 ## Peristaltic water pump
 
-D1 / GPIO5 now controls the 12 V Kamoer NKP-DC-S10B through an AO3400A MOSFET. Follow the complete [pump connections, protection and calibration guide](PUMP.md). Never connect the pump directly to a GPIO.
+D1 / GPIO5 now controls the 12 V Kamoer NKP-DC-S10B through an IRF9540N P-channel high-side MOSFET driven by a 2N3904 NPN (4.7k base, 100k base pulldown, 10k gate-source pull-up and 1k collector-to-gate resistors). Follow the complete [pump connections, protection and calibration guide](PUMP.md). Never connect the pump directly to a GPIO.

@@ -65,7 +65,7 @@ See **[the wiring guide](docs/WIRING.md)** and **[the wiring diagram](docs/wirin
 | Direction | D6 | 12 | DIR |
 | Enable | D7 | 13 | EN, plus external 10k pull-up to 3V3 |
 | Button | D2 | 4 | Normally-open button to GND |
-| Water pump | D1 | 5 | 330 ohm to AO3400A gate; see pump guide |
+| Water pump | D1 | 5 | 4.7k to 2N3904 base → IRF9540N high-side switch; see pump guide |
 | Logic supply | 3V3 | | VDD, MS1, MS2, MS3, RESET, SLEEP |
 | Common reference | GND | | Driver logic GND and motor-supply negative |
 

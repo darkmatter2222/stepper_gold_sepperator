@@ -41,9 +41,9 @@ power='<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1150" viewBo
 (r/'docs/power_wiring.svg').write_text(power)
 subprocess.run([sys.executable,str(r/'tools/draw_pump.py')],check=True)
 # Standalone diagrams are the source; the combined README image embeds all three.
-out=ET.Element('svg',{'xmlns':'http://www.w3.org/2000/svg','width':'1280','height':'2810','viewBox':'0 0 1280 2810'})
+out=ET.Element('svg',{'xmlns':'http://www.w3.org/2000/svg','width':'1280','height':'3120','viewBox':'0 0 1280 3120'})
 y=0
-for name,h in [('power_wiring.svg',1150),('stepper_wiring.svg',930),('pump_wiring.svg',730)]:
+for name,h in [('power_wiring.svg',1150),('stepper_wiring.svg',930),('pump_wiring.svg',1040)]:
  g=ET.SubElement(out,'g',{'transform':f'translate(0 {y})'})
  for el in ET.fromstring((r/'docs'/name).read_text()):g.append(el)
  y+=h

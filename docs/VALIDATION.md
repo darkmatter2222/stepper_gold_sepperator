@@ -29,3 +29,9 @@ The first package mirror returned invalid downloads; PlatformIO rejected their c
 Updated README, wiring guide, pump guide, hardware reference, standalone power/stepper/pump SVGs and combined diagram. Rendered all three standalone SVGs with Inkscape and visually checked labels and connections. XML parsing, generator repeatability and whitespace checks passed. Regenerate with `python tools/draw_wiring.py`; `docs/stepper_wiring.svg` is the editable stepper source. Existing mechanical PDF contains no integrated electronics diagram; original release archives remain historical snapshots. Firmware and CAD are unchanged; no new firmware test run is claimed.
 
 Physical checks still required: obscured regulator marking/pinout, driver identity, clone VIN power path, breadboard continuity, output voltage under load, regulator cooling, current limit and motor/pump startup transients.
+
+## Inventory-based pump switch (2026-09-27)
+
+Replaced the AO3400A circuit with IRF9540N high-side switching, 2N3904 level shifting and a 1N5822 flyback diode using photographed stock. Verified reference manufacturer pinouts/ratings and calculated gate drive, base current and nominal conduction loss. Updated the standalone and combined diagrams, their generators, connection tables and firmware comments. Active-HIGH firmware behavior is unchanged. SVGs were XML-parsed, regenerated for repeatability and the pump PNG was visually inspected; git diff whitespace checks passed. No new firmware test or physical pump test is claimed.
+
+Before operation, verify the actual kit components/pinouts, reset-OFF behavior, gate voltages, pump startup current and temperature using the procedure in PUMP.md.

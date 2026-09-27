@@ -3,7 +3,7 @@
 namespace cfg {
 // Photo: ESP8266 ESP-12E NodeMCU, NOT ESP32. Use GPIO numbers here.
 constexpr uint8_t STEP_PIN = 14, DIR_PIN = 12, ENABLE_PIN = 13, BUTTON_PIN = 4;
-constexpr uint8_t PUMP_PIN = 5; // D1, active HIGH to the low-side MOSFET gate resistor.
+constexpr uint8_t PUMP_PIN = 5; // D1, active HIGH through 4.7k to 2N3904 driving IRF9540N high-side switch.
 constexpr bool PUMP_AUTO_DEFAULT = true;
 constexpr bool PUMP_DURING_SPIN = false; // Quiet settling and no added spin spray by default.
 constexpr uint32_t PUMP_PRIME_MS = 3000, PUMP_CALIBRATE_MS = 30000;

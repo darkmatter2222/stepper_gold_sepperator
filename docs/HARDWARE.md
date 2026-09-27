@@ -69,8 +69,8 @@ The Kamoer NKP family contains variants. No generic family dimensions or adverti
 | Stepper driver | Assumed A4988 STEP/DIR carrier | Chip hidden by heatsink; verify before wiring |
 | Driver carrier size / mounting pattern | Unknown / not used in CAD | Do not infer from PCB color |
 | Microsteps | 1/16; MS1/MS2/MS3 high for verified A4988 | Firmware/hardware configuration assumption |
-| Pump switch | AO3400A on suitable breakout | Specified component, not identified from user's loose transistor stock |
-| Protection | 1N5822 flyback diode, 330 ohm gate resistor, 100k pulldown | Specified circuit |
+| Pump switch | IRF9540N high-side + 2N3904 driver | Part numbers visible on inventory boxes; actual maker/pinout must be verified |
+| Protection | 1N5822 flyback; 4.7k base, 100k base-emitter, 10k gate-source, 1k gate-collector | Specified circuit |
 | Capacitors | 100 nF across pump; 100 µF/25 V supply bulk for 12 V | Specified circuit; stepper VMOT also has its own bulk capacitor |
 | Power | Shared regulated 12 V; L7805 TO-220 + heatsink converts to 5 V for NodeMCU VIN; driver logic remains 3.3 V | Supply current capacity and current limit require hardware confirmation |
 
