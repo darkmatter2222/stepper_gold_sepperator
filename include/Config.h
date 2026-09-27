@@ -25,10 +25,10 @@ struct Preset {
 };
 // Experimental loaded-bed trials; see docs/MOTION.md. Not motor ratings.
 // Keep 1/16 wiring. Bound requested pulse rate for the cooperative step loop.
-constexpr float MAX_STEP_RATE = 4000;
-constexpr Preset PRESETS[] = {{"LOW", 12, 180, 2400, 18, 3000, 30, 600, 0.5f, 2000},
-                              {"MEDIUM", 16, 270, 4800, 24, 3000, 45, 900, 0.5f, 2000},
-                              {"HIGH", 20, 360, 7200, 30, 3000, 60, 1200, 0.5f, 2000}};
+constexpr float MAX_STEP_RATE = 12000;
+constexpr Preset PRESETS[] = {{"LOW", 12, 540, 7200, 18, 3000, 90, 1800, 0.5f, 2000},
+                              {"MEDIUM", 16, 810, 14400, 24, 3000, 135, 2700, 0.5f, 2000},
+                              {"HIGH", 20, 1080, 21600, 30, 3000, 180, 3600, 0.5f, 2000}};
 constexpr unsigned PRESET_COUNT = sizeof(PRESETS) / sizeof(PRESETS[0]);
 static_assert(sizeof(PUMP_SCHEDULE) / sizeof(PUMP_SCHEDULE[0]) == PRESET_COUNT,
               "Pump preset mismatch");

@@ -44,3 +44,7 @@ Before operation, verify the actual kit components/pinouts, reset-OFF behavior, 
 - CAD P06 source profile inspected; no geometry changed. Documented loaded-sump limitations, research, calculations and controlled physical trials in MOTION.md; amended guide index so archived settings are not mistaken for current presets.
 - No physical hardware, torque, missed-step, flow or recovery validation was performed.
 - ESP8266 `pio run -e nodemcuv2`: PASS; RAM 28,844/81,920 bytes, flash 273,507/1,044,464 bytes. PlatformIO rejected invalid mirror checksums and used alternate downloads; no verification was bypassed. Framework elf2bin.py emitted Python escape-sequence warnings; firmware linked and BIN generation succeeded.
+
+## Tripled trial after further physical feedback (2026-09-27)
+
+Rocking speed ceilings and acceleration, spin RPM and spin acceleration are each 3× the preceding revision. Angle, count and dwell settings remain unchanged. Native tests 16/16 PASS; ESP8266 build PASS (RAM 28,844 bytes, flash 273,507 bytes). Real AccelStepper simulation PASS: recurring frequencies 4.601/5.592/6.067 Hz, spin durations 1.086/1.088/1.112 s, peak spin 90/135/180 RPM. Tests now handle triangular rocking profiles. Maximum requested rate 9600 pulses/s; selected budget 12000/s is unmeasured on hardware. No claim of physical tracking, available torque or improved gold recovery. Current README/MOTION amendment supersedes earlier preset tables and the former 60 RPM limit.

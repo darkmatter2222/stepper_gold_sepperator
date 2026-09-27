@@ -35,7 +35,10 @@ int main() {
     assert(controller.state()==Phase::Rest && periods>5);
     // Compare recurring positive-target transitions against full-cycle timing.
     const auto &p=cfg::PRESETS[mode];
-    const double expectedPeriod=2*(2*p.amplitudeDeg/p.speedDegS+p.speedDegS/p.accelDegS2);
+    const double travel=2*p.amplitudeDeg;
+    const double expectedPeriod=travel <= p.speedDegS*p.speedDegS/p.accelDegS2
+        ? 4*sqrt(travel/p.accelDegS2)
+        : 2*(travel/p.speedDegS+p.speedDegS/p.accelDegS2);
     const double measuredPeriod=periodSum/periods;
     assert(fabs(measuredPeriod-expectedPeriod)<0.05);
     const double expectedSpin=2*p.spinRpm*6/p.spinAccelDegS2+p.spinHoldSeconds;

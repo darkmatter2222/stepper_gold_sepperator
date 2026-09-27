@@ -20,4 +20,4 @@ The current electrical guide now uses a shared 12 V supply and L7805 5 V regulat
 
 ## Motion settings amendment (2026-09-27)
 
-The original guide's gentle motion settings are superseded by [MOTION.md](../MOTION.md) and the root README. Current firmware uses 20× rocking acceleration and 30/45/60 RPM spin trials. Existing PDFs and ZIPs remain historical snapshots.
+The original guide's gentle motion settings are superseded by [MOTION.md](../MOTION.md) and the root README. The latest escalation triples the first retune: 90/135/180 RPM spin trials, with rocking acceleration 7200/14400/21600 degrees/s². Existing PDFs and ZIPs remain historical snapshots.

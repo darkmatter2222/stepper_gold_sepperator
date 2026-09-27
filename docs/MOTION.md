@@ -1,3 +1,17 @@
+# Current amendment: tripled motion trial
+
+The user reported that the first retune below was still too slow. The current Config.h and README supersede its preset table: speed ceilings 540/810/1080 degrees/s; rocking acceleration 7200/14400/21600 degrees/s²; spin 90/135/180 RPM; spin acceleration 1800/2700/3600 degrees/s². Each is exactly three times the preceding revision. Amplitude, cycle counts, holds, pauses and pump settings are unchanged.
+
+This is a user-requested escalation for bench testing, not a research-derived optimum. The old 60 RPM limit and 4000 pulses/s budget below describe the preceding revision only. Current pulse budget is 12000/s, with requested maximum 9600/s. The existing cooperative engine is retained; actual timing at the new rate requires measurement. A nominal 104-microsecond service deadline at HIGH is not proven by a host simulation.
+
+The short rocking strokes are now triangular: continuous frequencies 4.33/5.30/5.81 Hz, peak rocking speeds about 416/679/930 degrees/s. Tripling acceleration and ceiling speed does not triple stroke frequency. Agitation windows shorten to about 4–5 seconds and water per batch may change. The motor can stall rather than move faster; verify shaft and bowl marks track the command before increasing the mode.
+
+At 90/135/180 RPM and radius 29 mm, radial acceleration is approximately 0.263/0.591/1.051 g, and ideal steady free-water rise is 3.81/8.57/15.24 mm. MEDIUM and HIGH exceed the approximately 106.6 RPM frictionless inward-sliding boundary discussed below. Even LOW has reduced inward margin. These bursts can expel heavies as well as gangue; collect all tailings. The packed central pocket and zero-motion axis limitations remain. No geometry or hardware rating has been validated by this escalation.
+
+Apply the bench procedure below with the **current README's values**: LOW now commands ±12 degrees and 90 RPM. The previous timing results are historical. New validation is recorded in VALIDATION.md.
+
+---
+
 # Loaded-bed motion revision, 2026-09-27
 
 ## Finding and hypothesis

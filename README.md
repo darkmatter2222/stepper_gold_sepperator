@@ -102,21 +102,21 @@ While running, a newly selected mode is **queued until the next complete rock/se
 
 Serial commands: `1`, `2`, `3` select; `s` start; `x` controlled stop; `!` immediately disables the driver; `?` requests status. `p` primes water for 3 seconds while idle; `c` runs a 30-second calibration while idle; `w` toggles automatic water. No newline required. Immediate disable removes holding torque and the bowl can coast. The button is a software control, not a physical emergency disconnect.
 
-## Loaded-bed trial presets (2026-09-27)
+## Tripled motion trial (2026-09-27)
 
-These replace the original gentle commissioning settings. Read [motion research, calculations and test procedure](docs/MOTION.md) before testing. They are hypotheses for physical trials, not proven recovery settings or motor ratings.
+After the first retune remained too gentle in physical use, rocking speed ceilings, rocking acceleration, spin RPM and spin acceleration were each multiplied by three. Read [MOTION.md](docs/MOTION.md) for the geometry, limitations and bench procedure. These are experimental commands, not verified motor ratings or recovery settings.
 
 | Preset | Rock amplitude | Speed ceiling | Accel/decel | Cycles | Settle | Spin | Spin accel/decel | Hold | Rest |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| LOW | ±12° | 180°/s | 2400°/s² | 18 | 3 s | 30 rpm | 600°/s² | 0.5 s | 2 s |
-| MEDIUM | ±16° | 270°/s | 4800°/s² | 24 | 3 s | 45 rpm | 900°/s² | 0.5 s | 2 s |
-| HIGH | ±20° | 360°/s | 7200°/s² | 30 | 3 s | 60 rpm | 1200°/s² | 0.5 s | 2 s |
+| LOW | ±12° | 540°/s | 7200°/s² | 18 | 3 s | 90 rpm | 1800°/s² | 0.5 s | 2 s |
+| MEDIUM | ±16° | 810°/s | 14400°/s² | 24 | 3 s | 135 rpm | 2700°/s² | 0.5 s | 2 s |
+| HIGH | ±20° | 1080°/s | 21600°/s² | 30 | 3 s | 180 rpm | 3600°/s² | 0.5 s | 2 s |
 
-Rock acceleration is **20× the previous value in every mode**. Interior full-cycle frequencies are approximately **2.40 / 2.86 / 3.10 Hz** (formerly 0.87 Hz). Moves brake to zero before reversing; finite acceleration, no jerk limiting. Each cycle visits +amplitude then -amplitude and the batch returns to center. Increased cycle counts retain roughly 8–10 seconds of agitation rather than shortening the agitation stage when speeding it up.
+Finite acceleration means actual rocking frequency does **not** triple: the strokes now have triangular velocity profiles, approximately **4.33 / 5.30 / 5.81 Hz** by continuous kinematics. They brake to rest at each endpoint. Rocking windows shorten to roughly 4–5 seconds, so measure total water delivered per batch again. Pump timings, rocking angles, cycle counts and quiet pauses are unchanged.
 
-Spin is deliberately limited to **30 / 45 / 60 RPM**, with about 1.1 seconds total per burst including ramps. A 300 RPM spin opposes center collection and is not enabled. The distance remains `v*v/a + v*hold` in microsteps.
+Spin bursts remain about 1.1 seconds including ramps. At HIGH, centrifugal acceleration at the 29 mm working radius is about **1.05 g**, beyond the frictionless inward-sliding boundary of this slope. This may eject desired concentrate. Retain all discharge and judge recovery separately from visible movement.
 
-Keep the existing **200 full steps/revolution, 1/16 microstep configuration** (verify the actual motor and driver). Peak requested rate is 3200 pulses/s; configuration rejects rates above the selected 4000 pulses/s software budget. This budget is not measured ESP8266 timing performance. No rewiring is required. Confirm real motion using a shaft/bowl mark: this open-loop firmware cannot detect a loose hub or missed steps.
+Keep the existing **200 full steps/revolution, 1/16 microstep wiring**. Peak requested spin rate is **9600 pulses/s** (104 microseconds per pulse); the selected software budget is now 12000 pulses/s. This is not measured board throughput. If the motor buzzes or motion fails to track commands, stop: more commanded speed will not cure lost steps or a slipping hub. Start with LOW after upload. Status printing remains deferred until motion pauses.
 
 At the end of each spin, the stopped location becomes the next local rocking center. There is no homing sensor and no need to return to the original absolute shaft angle. Coordinates reset only at rest to avoid position accumulation over hours. No random stages are enabled, so experiments can be repeated and compared.
 

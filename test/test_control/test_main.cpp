@@ -50,7 +50,7 @@ void sequence_and_queue() {
   }
   TEST_ASSERT_EQUAL(18, neg);
   TEST_ASSERT_EQUAL(0, c.active());
-  const float v = 30 * 6 * cfg::STEPS_PER_DEGREE, a = 600 * cfg::STEPS_PER_DEGREE;
+  const float v = 90 * 6 * cfg::STEPS_PER_DEGREE, a = 1800 * cfg::STEPS_PER_DEGREE;
   TEST_ASSERT_EQUAL(lroundf(v * v / a + v * 0.5f), m.target);
   while (c.state() != Phase::Rest && t < 40000)
     c.tick(++t);
@@ -154,10 +154,12 @@ void motion_envelope() {
   for (unsigned i = 0; i < cfg::PRESET_COUNT; ++i) {
     const auto &p = cfg::PRESETS[i];
     const float travel = 2 * p.amplitudeDeg;
-    const float halfPeriod = travel / p.speedDegS + p.speedDegS / p.accelDegS2;
-    TEST_ASSERT_TRUE(travel >= p.speedDegS * p.speedDegS / p.accelDegS2);
-    TEST_ASSERT_TRUE(0.5f / halfPeriod >= 2.3f && 0.5f / halfPeriod <= 3.2f);
-    TEST_ASSERT_TRUE(p.spinRpm <= 60);
+    const float halfPeriod = travel <= p.speedDegS * p.speedDegS / p.accelDegS2
+        ? 2 * sqrtf(travel / p.accelDegS2)
+        : travel / p.speedDegS + p.speedDegS / p.accelDegS2;
+    TEST_ASSERT_TRUE(travel < p.speedDegS * p.speedDegS / p.accelDegS2);
+    TEST_ASSERT_TRUE(0.5f / halfPeriod >= 4.3f && 0.5f / halfPeriod <= 5.9f);
+    TEST_ASSERT_TRUE(p.spinRpm <= 180);
     TEST_ASSERT_TRUE(p.speedDegS * cfg::STEPS_PER_DEGREE <= cfg::MAX_STEP_RATE);
     Motor m;
     Controller<Motor> c(m);
@@ -178,7 +180,7 @@ void motion_envelope() {
   invalid.spinRpm = 300;
   TEST_ASSERT_FALSE(cfg::valid(invalid));
   invalid = cfg::PRESETS[2];
-  invalid.speedDegS = 1000;
+  invalid.speedDegS = 2000;
   TEST_ASSERT_FALSE(cfg::valid(invalid));
 }
 int main() {
