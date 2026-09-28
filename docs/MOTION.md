@@ -1,4 +1,14 @@
-# Current amendment: tripled motion trial
+# Current revision: six modes and longer agitation
+
+The current preset table is in [README](../README.md#six-modes-and-doubled-agitation-2026-09-27). Modes 1–3 preserve 90/135/180 RPM and double rocking counts to 36/48/60. New modes 4–6 run at 195/210/225 RPM with 65/70/75 cycles, retaining about 10 seconds agitation. Rocking angles stay at ±20 degrees for modes 3–6. Settling, spin plateau and rest remain unchanged. Button/serial/LED selection now covers six modes; new pump profiles reuse HIGH's intervals. Existing 12000 pulses/s budget is retained. Real board pulse timing and loaded torque remain unmeasured.
+
+Read [OPERATION.md](OPERATION.md) for the new photo assessment, finite concentrate capacity, proposed fill trials, particle-size classification, research references and mass-balance tests. Mode 3 is a successful reported visual trial, not a measured recovery benchmark. More speed or time is not assumed to improve recovery. No geometry changed.
+
+Everything below is chronological history and its old preset tables/limits are superseded by the current README.
+
+---
+
+# Historical amendment: tripled motion trial
 
 The user reported that the first retune below was still too slow. The current Config.h and README supersede its preset table: speed ceilings 540/810/1080 degrees/s; rocking acceleration 7200/14400/21600 degrees/s²; spin 90/135/180 RPM; spin acceleration 1800/2700/3600 degrees/s². Each is exactly three times the preceding revision. Amplitude, cycle counts, holds, pauses and pump settings are unchanged.
 

@@ -52,7 +52,7 @@ The pump starts OFF. Starting the machine also enables timed water bursts while 
 |---|---:|---:|
 | LOW | 0.50 s | 4.50 s |
 | MEDIUM | 0.75 s | 4.25 s |
-| HIGH | 1.00 s | 4.00 s |
+| HIGH / TRIAL4 / TRIAL5 / TRIAL6 | 1.00 s | 4.00 s |
 
 Each rocking batch begins with an ON interval. These are full-12-V bursts, not reduced-voltage PWM. Short phases can truncate intervals, so total flow cannot be inferred simply from a nominal duty percentage. Edit `PUMP_SCHEDULE` in `include/Config.h` after measuring. Start with LOW and observe drainage; the defaults are experimental, not a hydraulic recovery model.
 
@@ -78,3 +78,7 @@ Repeated `p`/`c` cannot extend an active manual run. A long button press that st
 5. Check MOSFET, wiring and pump temperature and startup reliability before adding material. Keep the clean-water reservoir below the outlet where practical; test for siphoning after shutdown. Stopping the motor is not a certified fluid shutoff valve.
 
 There is no flow sensor, reservoir sensor or overflow switch. Software cannot detect an empty reservoir, blocked drain, disconnected tube or failed switch. Unattended operation and gold recovery have not been validated.
+
+## Longer agitation and six modes
+
+Modes 1–3 now double rocking counts; modes 4–6 retain roughly 10 seconds agitation and use HIGH water intervals. Longer agitation changes delivered water per batch even though ON/OFF intervals are unchanged. Measure complete-cycle delivery again; see [OPERATION.md](OPERATION.md) for feeding and cleanup.

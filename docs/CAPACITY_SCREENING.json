@@ -1,0 +1,67 @@
+{
+  "scope": "Static empty P06 void, no P07. Not operational retained-solids capacity or a safe fill limit.",
+  "fill_volumes": [
+    {
+      "depth_from_sump_floor_mm": 2.5,
+      "assembly_z_mm": 78.5,
+      "static_void_ml": 0.4917
+    },
+    {
+      "depth_from_sump_floor_mm": 5,
+      "assembly_z_mm": 81,
+      "static_void_ml": 0.9943
+    },
+    {
+      "depth_from_sump_floor_mm": 8.5,
+      "assembly_z_mm": 84.5,
+      "static_void_ml": 1.698
+    },
+    {
+      "depth_from_sump_floor_mm": 11,
+      "assembly_z_mm": 87,
+      "static_void_ml": 2.2703
+    },
+    {
+      "depth_from_sump_floor_mm": 18,
+      "assembly_z_mm": 94,
+      "static_void_ml": 11.294
+    },
+    {
+      "depth_from_sump_floor_mm": 21,
+      "assembly_z_mm": 97,
+      "static_void_ml": 19.7254
+    }
+  ],
+  "spin_screening": [
+    {
+      "rpm": 90,
+      "radial_g_at_29mm": 0.2626,
+      "ideal_water_rise_mm": 3.807
+    },
+    {
+      "rpm": 135,
+      "radial_g_at_29mm": 0.5908,
+      "ideal_water_rise_mm": 8.567
+    },
+    {
+      "rpm": 180,
+      "radial_g_at_29mm": 1.0503,
+      "ideal_water_rise_mm": 15.23
+    },
+    {
+      "rpm": 195,
+      "radial_g_at_29mm": 1.2327,
+      "ideal_water_rise_mm": 17.874
+    },
+    {
+      "rpm": 210,
+      "radial_g_at_29mm": 1.4296,
+      "ideal_water_rise_mm": 20.73
+    },
+    {
+      "rpm": 225,
+      "radial_g_at_29mm": 1.6412,
+      "ideal_water_rise_mm": 23.797
+    }
+  ]
+}

@@ -39,7 +39,7 @@ void setup() {
   WiFi.forceSleepBegin();
   Serial.begin(115200);
   Serial.println("\nGold separator: IDLE. Tap=mode; hold 0.8s=start/stop.");
-  Serial.println("Serial: 1/2/3=mode s=start x=stop !=disable ?=status");
+  Serial.println("Serial: 1-6=mode s=start x=stop !=disable ?=status");
   Serial.println("Water: p=prime 3s c=calibrate 30s (idle only), w=auto toggle; x/! cancel");
 }
 void loop() {
@@ -62,7 +62,7 @@ void loop() {
   // Bound serial work per iteration so input flooding cannot starve step generation.
   if (Serial.available()) {
     char ch = Serial.read();
-    if (ch >= '1' && ch <= '3')
+    if (ch >= '1' && ch < '1' + cfg::PRESET_COUNT)
       controller.select(ch - '1');
     else if (ch == 's') {
       if (!controller.running()) {
@@ -101,8 +101,8 @@ void loop() {
     Serial.write(reinterpret_cast<const uint8_t *>(line), n);
     reportPending = false;
   }
-  // 1/2/3 flashes per two seconds show selected mode; active mode is in Serial.
-  const uint32_t t = now % 2000;
+  // 1-6 flashes per three seconds; distinct pause after the sixth flash.
+  const uint32_t t = now % 3000;
   const bool flash = t < (controller.selected() + 1) * 300 && t % 300 < 120;
   digitalWrite(LED_BUILTIN, flash ? LOW : HIGH);
   controller.tick(millis());

@@ -14,7 +14,7 @@ int main() {
     controller.select(mode);
     controller.start(0);
     Phase before=controller.state();
-    unsigned long positiveAt=0, spinAt=0;
+    unsigned long positiveAt=0, spinAt=0, agitationAt=0, agitationEnd=0;
     double periodSum=0;
     unsigned periods=0, positiveEntries=0;
     float peakSpin=0;
@@ -23,9 +23,11 @@ int main() {
       controller.tick(simulatedMicros/1000);
       auto phase=controller.state();
       if (phase==Phase::Positive && before!=phase) {
+        if (!agitationAt) agitationAt=simulatedMicros;
         if (++positiveEntries > 2) { periodSum+=(simulatedMicros-positiveAt)/1e6; ++periods; }
         positiveAt=simulatedMicros;
       }
+      if (phase==Phase::Settle && before!=phase) agitationEnd=simulatedMicros;
       if (phase==Phase::Spin) {
         if (before!=phase) spinAt=simulatedMicros;
         peakSpin=std::max(peakSpin, motor.speed());
@@ -45,6 +47,9 @@ int main() {
     const double measuredSpin=(simulatedMicros-spinAt)/1e6;
     assert(fabs(measuredSpin-expectedSpin)<0.05);
     assert(fabs(peakSpin/(6*cfg::STEPS_PER_DEGREE)-p.spinRpm)<0.2);
-    printf("%s: %.3f Hz, spin %.3f s, peak %.2f RPM\n",p.name,1/measuredPeriod,measuredSpin,peakSpin/(6*cfg::STEPS_PER_DEGREE));
+    const double agitation=(agitationEnd-agitationAt)/1e6;
+    assert(agitation>7.5 && agitation<11.0);
+    assert(positiveEntries==p.cycles);
+    printf("%s: %.3f Hz, agitation %.3f s, spin %.3f s, peak %.2f RPM\n",p.name,1/measuredPeriod,agitation,measuredSpin,peakSpin/(6*cfg::STEPS_PER_DEGREE));
   }
 }

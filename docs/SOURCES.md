@@ -29,3 +29,7 @@ Pump timings are conservative experimental starting settings, not results from f
 - ST L78 datasheet, TO-220 pinout, application bypass capacitors, minimum load and thermal data: https://www.st.com/resource/en/datasheet/l78.pdf
 - Original NodeMCU DevKit v1.0 schematic (reference only; clone isolation is not established): https://github.com/nodemcu/nodemcu-devkit-v1.0/blob/master/NODEMCU_DEVKIT_V1.0.PDF
 - New breadboard photographs show ESP8266 ESP-12E, red driver carrier, heatsink-mounted three-lead regulator and tactile button. Regulator marking and driver IC remain obscured; no hole-by-hole pinout is inferred.
+
+## Feeding, saturation and particle size review (2026-09-27)
+
+See [OPERATION.md](OPERATION.md#research-references-and-limits) for primary studies and manufacturer descriptions, access limitations, and the distinction between transferable mechanisms and unvalidated local fill/screen settings. Reproducible stationary cavity integration is in `tools/check_capacity.py`; it is not CFD or usable concentrate capacity.

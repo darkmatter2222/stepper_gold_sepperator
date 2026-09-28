@@ -48,7 +48,7 @@ void sequence_and_queue() {
       ++neg;
     old = c.state();
   }
-  TEST_ASSERT_EQUAL(18, neg);
+  TEST_ASSERT_EQUAL(36, neg);
   TEST_ASSERT_EQUAL(0, c.active());
   const float v = 90 * 6 * cfg::STEPS_PER_DEGREE, a = 1800 * cfg::STEPS_PER_DEGREE;
   TEST_ASSERT_EQUAL(lroundf(v * v / a + v * 0.5f), m.target);
@@ -138,7 +138,7 @@ void thousands_of_batches() {
   uint32_t t = 0;
   unsigned rests = 0;
   Phase old = c.state();
-  while (rests < 1000 && t < 20000000) {
+  while (rests < 1000 && t < 150000000) {
     c.tick(++t);
     if (c.state() == Phase::Rest && old != c.state()) {
       ++rests;
@@ -158,9 +158,9 @@ void motion_envelope() {
         ? 2 * sqrtf(travel / p.accelDegS2)
         : travel / p.speedDegS + p.speedDegS / p.accelDegS2;
     TEST_ASSERT_TRUE(travel < p.speedDegS * p.speedDegS / p.accelDegS2);
-    TEST_ASSERT_TRUE(0.5f / halfPeriod >= 4.3f && 0.5f / halfPeriod <= 5.9f);
-    TEST_ASSERT_TRUE(p.spinRpm <= 180);
-    TEST_ASSERT_TRUE(p.speedDegS * cfg::STEPS_PER_DEGREE <= cfg::MAX_STEP_RATE);
+    TEST_ASSERT_TRUE(0.5f / halfPeriod >= 4.3f && 0.5f / halfPeriod <= 7.3f);
+    TEST_ASSERT_TRUE(p.spinRpm <= 225);
+    TEST_ASSERT_TRUE(cfg::rockStepRate(p) <= cfg::MAX_STEP_RATE);
     Motor m;
     Controller<Motor> c(m);
     c.select(i);
@@ -168,7 +168,7 @@ void motion_envelope() {
     c.tick(10);
     TEST_ASSERT_FLOAT_WITHIN(0.1f, p.accelDegS2 * cfg::STEPS_PER_DEGREE, m.accel);
     uint32_t t = 10;
-    while (c.state() != Phase::Spin && t < 60000) c.tick(++t);
+    while (c.state() != Phase::Spin && t < 150000) c.tick(++t);
     TEST_ASSERT_EQUAL_INT((int)Phase::Spin, (int)c.state());
     TEST_ASSERT_FLOAT_WITHIN(0.1f, p.spinRpm * 6 * cfg::STEPS_PER_DEGREE, m.speed);
     TEST_ASSERT_FLOAT_WITHIN(0.1f, p.spinAccelDegS2 * cfg::STEPS_PER_DEGREE, m.accel);
@@ -183,8 +183,33 @@ void motion_envelope() {
   invalid.speedDegS = 2000;
   TEST_ASSERT_FALSE(cfg::valid(invalid));
 }
+void six_modes_and_doubled_agitation() {
+  TEST_ASSERT_EQUAL(6, cfg::PRESET_COUNT);
+  TEST_ASSERT_EQUAL(36, cfg::PRESETS[0].cycles);
+  TEST_ASSERT_EQUAL(48, cfg::PRESETS[1].cycles);
+  TEST_ASSERT_EQUAL(60, cfg::PRESETS[2].cycles);
+  Motor m;
+  Controller<Motor> c(m);
+  for (unsigned i=0; i<6; ++i) {
+    TEST_ASSERT_EQUAL(i,c.selected());
+    c.next();
+  }
+  TEST_ASSERT_EQUAL(0,c.selected());
+  c.select(5);
+  c.select(6); // invalid selection ignored
+  TEST_ASSERT_EQUAL(5,c.selected());
+  c.start(0); c.tick(10);
+  c.select(0);
+  TEST_ASSERT_EQUAL(5,c.active()); // queue, never switch speed mid-stroke
+  uint32_t t=10;
+  while(c.state()!=Phase::Rest && t<150000) c.tick(++t);
+  TEST_ASSERT_EQUAL_INT((int)Phase::Rest,(int)c.state());
+  c.tick(t+2000);
+  TEST_ASSERT_EQUAL(0,c.active());
+}
 int main() {
   UNITY_BEGIN();
+  RUN_TEST(six_modes_and_doubled_agitation);
   RUN_TEST(motion_envelope);
   RUN_TEST(boot_idle);
   RUN_TEST(sequence_and_queue);

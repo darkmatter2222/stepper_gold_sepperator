@@ -92,8 +92,22 @@ void no_delayed_catchup() {
   p.tick(64500, Phase::Negative, 0);
   TEST_ASSERT_TRUE(p.on());
 }
+void all_six_pump_profiles() {
+  for(unsigned i=0;i<cfg::PRESET_COUNT;++i) {
+    Pump p;
+    p.tick(0,Phase::Positive,i);
+    TEST_ASSERT_TRUE(p.on());
+    p.tick(cfg::PUMP_SCHEDULE[i].onMs,Phase::Negative,i);
+    TEST_ASSERT_FALSE(p.on());
+    p.tick(5000,Phase::Positive,i);
+    TEST_ASSERT_TRUE(p.on());
+    p.tick(5001,Phase::Spin,i);
+    TEST_ASSERT_FALSE(p.on());
+  }
+}
 int main() {
   UNITY_BEGIN();
+  RUN_TEST(all_six_pump_profiles);
   RUN_TEST(off_at_boot_and_pauses);
   RUN_TEST(timing_across_reversals);
   RUN_TEST(mode_and_stop);

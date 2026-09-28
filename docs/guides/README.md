@@ -21,3 +21,7 @@ The current electrical guide now uses a shared 12 V supply and L7805 5 V regulat
 ## Motion settings amendment (2026-09-27)
 
 The original guide's gentle motion settings are superseded by [MOTION.md](../MOTION.md) and the root README. The latest escalation triples the first retune: 90/135/180 RPM spin trials, with rocking acceleration 7200/14400/21600 degrees/s². Existing PDFs and ZIPs remain historical snapshots.
+
+## Six-mode and capacity amendment (2026-09-27)
+
+Current firmware has six modes (90/135/180/195/210/225 RPM) and approximately doubled agitation time. Follow the root README and [OPERATION.md](../OPERATION.md) for current controls, experimental fill targets and size classification. Earlier motion amendments and archived PDFs are historical.

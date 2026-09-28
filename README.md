@@ -22,6 +22,7 @@ PlatformIO / Arduino C++ firmware for the **ESP8266 NodeMCU ESP-12E shown in the
 | [Original ZIP deliveries](releases/original_packages/) | Unmodified v1 kit, v2 kit and M3 hub delivery packages |
 | [Artifact manifest](docs/ARTIFACT_MANIFEST.json) | Byte sizes and SHA-256 checksums of preserved CAD, guides, source and review artifacts |
 | [Wiring](docs/WIRING.md) / [pump](docs/PUMP.md) | Electrical connections, switching components and flow calibration |
+| [Operating guide](docs/OPERATION.md) | Fill targets, staged feeding, size classification, capacity calculations and recovery tests |
 | [Sources](docs/SOURCES.md) / [validation](docs/VALIDATION.md) | Research references, assumptions, checks and remaining physical tests |
 | `src/`, `include/`, `test/`, `platformio.ini` | C++ firmware, settings, host tests and pinned PlatformIO environments |
 
@@ -93,30 +94,35 @@ The board/framework choice matches your [ESP8266 seismometer configuration](http
 
 | Action | Result |
 |---|---|
-| Short press and release | LOW → MEDIUM → HIGH → LOW |
+| Short press and release | 1 → 2 → 3 → 4 → 5 → 6 → 1 |
 | Hold for 0.8 seconds while idle | Start selected preset |
 | Hold for 0.8 seconds while running | Decelerate to stop, then disable motor coils |
 | Hold button during boot | No start; release it before normal operation |
 
-While running, a newly selected mode is **queued until the next complete rock/settle/spin/rest batch**. It never changes speed abruptly mid-motion. The onboard LED flashes 1, 2 or 3 times per two seconds for the selected mode. Serial reports the selected and currently active mode separately at the next motion pause. The LED pattern indicates mode, not running status.
+While running, a newly selected mode is **queued until the next complete rock/settle/spin/rest batch**. It never changes speed abruptly mid-motion. The onboard LED flashes 1–6 times per three seconds for the selected mode. Serial reports the selected and currently active mode separately at the next motion pause. The LED pattern indicates mode, not running status.
 
-Serial commands: `1`, `2`, `3` select; `s` start; `x` controlled stop; `!` immediately disables the driver; `?` requests status. `p` primes water for 3 seconds while idle; `c` runs a 30-second calibration while idle; `w` toggles automatic water. No newline required. Immediate disable removes holding torque and the bowl can coast. The button is a software control, not a physical emergency disconnect.
+Serial commands: `1`–`6` select; `s` start; `x` controlled stop; `!` immediately disables the driver; `?` requests status. `p` primes water for 3 seconds while idle; `c` runs a 30-second calibration while idle; `w` toggles automatic water. No newline required. Immediate disable removes holding torque and the bowl can coast. The button is a software control, not a physical emergency disconnect.
 
-## Tripled motion trial (2026-09-27)
+## Six modes and doubled agitation (2026-09-27)
 
-After the first retune remained too gentle in physical use, rocking speed ceilings, rocking acceleration, spin RPM and spin acceleration were each multiplied by three. Read [MOTION.md](docs/MOTION.md) for the geometry, limitations and bench procedure. These are experimental commands, not verified motor ratings or recovery settings.
+The operator reports the previous mode 3 gave the best visible concentration and mud removal, with some heavy-mineral loss. Modes 1–3 retain their speeds and angles; their rocking cycle counts are doubled. Modes 4–6 are progressively faster trials, with counts chosen to preserve about 10 seconds of agitation. This increases time spent agitating; it does not double frequency.
 
-| Preset | Rock amplitude | Speed ceiling | Accel/decel | Cycles | Settle | Spin | Spin accel/decel | Hold | Rest |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| LOW | ±12° | 540°/s | 7200°/s² | 18 | 3 s | 90 rpm | 1800°/s² | 0.5 s | 2 s |
-| MEDIUM | ±16° | 810°/s | 14400°/s² | 24 | 3 s | 135 rpm | 2700°/s² | 0.5 s | 2 s |
-| HIGH | ±20° | 1080°/s | 21600°/s² | 30 | 3 s | 180 rpm | 3600°/s² | 0.5 s | 2 s |
+| Mode | Name | Angle | Rock speed ceiling °/s | Rock accel °/s² | Cycles | Simulated agitation | Spin RPM | Spin accel °/s² |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | LOW | ±12° | 540 | 7200 | 36 | 7.87 s | 90 | 1800 |
+| 2 | MEDIUM | ±16° | 810 | 14400 | 48 | 8.62 s | 135 | 2700 |
+| 3 | HIGH | ±20° | 1080 | 21600 | 60 | 9.92 s | 180 | 3600 |
+| 4 | TRIAL4 | ±20° | 1170 | 25350 | 65 | 9.93 s | 195 | 3900 |
+| 5 | TRIAL5 | ±20° | 1260 | 29400 | 70 | 9.93 s | 210 | 4200 |
+| 6 | TRIAL6 | ±20° | 1350 | 33750 | 75 | 9.92 s | 225 | 4500 |
 
-Finite acceleration means actual rocking frequency does **not** triple: the strokes now have triangular velocity profiles, approximately **4.33 / 5.30 / 5.81 Hz** by continuous kinematics. They brake to rest at each endpoint. Rocking windows shorten to roughly 4–5 seconds, so measure total water delivered per batch again. Pump timings, rocking angles, cycle counts and quiet pauses are unchanged.
+All modes retain 3 seconds settling, 0.5 seconds requested spin plateau and 2 seconds post-spin rest. Rocking brakes to zero before reversing, with triangular velocity profiles. Simulated frequencies are 4.60/5.59/6.07/6.57/7.07/7.58 Hz. Times are real-library host simulation results, not measured motor motion. Doubling cycle count approximately doubles duration; the initial/final half strokes prevent an exact 2.000× ratio.
 
-Spin bursts remain about 1.1 seconds including ramps. At HIGH, centrifugal acceleration at the 29 mm working radius is about **1.05 g**, beyond the frictionless inward-sliding boundary of this slope. This may eject desired concentrate. Retain all discharge and judge recovery separately from visible movement.
+Mode 3 is the comparison baseline. Try its longer agitation before increasing spin; modes 4–6 are not established recovery improvements. Keep all tailings. At 225 RPM the calculated radial acceleration at the 29 mm working radius is 1.64 g; faster ejection can lose desired minerals as well as gangue.
 
-Keep the existing **200 full steps/revolution, 1/16 microstep wiring**. Peak requested spin rate is **9600 pulses/s** (104 microseconds per pulse); the selected software budget is now 12000 pulses/s. This is not measured board throughput. If the motor buzzes or motion fails to track commands, stop: more commanded speed will not cure lost steps or a slipping hub. Start with LOW after upload. Status printing remains deferred until motion pauses.
+Keep existing 200-full-step, 1/16 microstep wiring. The maximum requested rate is now 12000 pulses/s, the existing software budget (about 83 microseconds per pulse). Actual ESP8266 scheduling/loaded torque are unmeasured. If motion stalls, slips or buzzes, stop and verify tracking rather than assuming commanded speed is achieved.
+
+**Feeding and fill:** [OPERATION.md](docs/OPERATION.md) explains the photo, particle-size effects and staged feeding. The central void is about 2.27 mL up to its slope entrance, but that is not usable concentrate capacity. Start cleanup trials at roughly 0.5 mL retained settled bed; explore up to 1 mL only with acceptable measured losses. No validated maximum fill exists at mode 3 or the faster modes. Do not add unmeasured scoops to a full pocket. The machine supports periodic concentrate cleanup, not indefinite accumulation.
 
 At the end of each spin, the stopped location becomes the next local rocking center. There is no homing sensor and no need to return to the original absolute shaft angle. Coordinates reset only at rest to avoid position accumulation over hours. No random stages are enabled, so experiments can be repeated and compared.
 
@@ -128,7 +134,7 @@ The pump runs at **full regulated 12 V when ON**. Firmware uses slow timed burst
 |---|---:|---:|---:|---:|
 | LOW | 0.50 s | 4.50 s | 10% | 0.10 × Q |
 | MEDIUM | 0.75 s | 4.25 s | 15% | 0.15 × Q |
-| HIGH | 1.00 s | 4.00 s | 20% | 0.20 × Q |
+| HIGH / TRIAL4 / TRIAL5 / TRIAL6 | 1.00 s | 4.00 s | 20% | 0.20 × Q |
 
 **These are timing ratios, not measured water flow rates.** Each rocking batch begins with an ON pulse; the batch can end partway through an interval. Water is OFF during centering, settling, spin, rest and stopping. Consequently, multiplying by 10/15/20% does not give the whole-machine average, and the actual cyclic average is not necessarily lower than those ratios because intervals restart. Short-burst startup, pump rollers, hose elasticity, lift and outlet restriction also affect delivery. The exact NKP-S10B tube configuration and a manufacturer flow curve for this unit have not been verified. We have not simulated or optimized this system's water flow.
 
@@ -148,7 +154,7 @@ For arithmetic illustration only, collecting 20 mL during a 30-second calibratio
 | Nameplate power | 5 W |
 | Current inferred from 5 W / 12 V | About 0.42 A; not measured running or stall current |
 | Continuous installed flow | Not measured |
-| LOW / MEDIUM / HIGH whole-cycle flow | Not measured |
+| All six modes: whole-cycle flow | Not measured |
 | Maximum catcher drainage rate | Not measured |
 | Recovery versus flow or feed size | Not measured |
 
@@ -160,7 +166,7 @@ Use the [pump guide](docs/PUMP.md) for MOSFET wiring, flyback protection, supply
 
 | Serial command | Meaning |
 |---|---|
-| `1`, `2`, `3` | Select LOW, MEDIUM or HIGH; apply at next complete batch if already running |
+| `1`–`6` | Select one of six presets; apply at next complete batch if already running |
 | `s` | Start motion from idle; automatic water follows its phase schedule |
 | `x` | Shut water off immediately, decelerate motor, disable coils once stopped |
 | `!` | Shut water off and disable drive immediately; rotor can coast |
@@ -175,9 +181,9 @@ Manual prime/calibration requests during motion are ignored. Repeating a manual 
 
 ## Separation mechanics and research limits
 
-The intended sequence is gentle rocking to loosen/stratify the bed, a quiet settling interval, then a brief ramped forward spin to move some material outward. Gravity and the bowl slope can favor inward transport when grains can move. Rotation produces outward acceleration `a = omega² × radius`; it is not a guarantee that light material exits while all gold stays centered. Both grain size and density matter, and flakes can behave differently from spheres.
+The intended sequence is rocking to loosen/stratify the bed, a quiet settling interval, then a brief ramped forward spin to move some material outward. Gravity and the bowl slope can favor inward transport when grains can move. Rotation produces outward acceleration `a = omega² × radius`; it is not a guarantee that light material exits while all gold stays centered. Both grain size and density matter, and flakes can behave differently from spheres.
 
-At the bowl's nominal 32 mm outer radius, 10/20/30 rpm correspond to approximately 0.0036/0.0143/0.0322 g outward acceleration. These are analytical values, not proof of useful solids ejection. The 20.2° bowl slope is an experimental design choice. The source calculations in the v2 kit are explicitly analytical screening, not CFD, multiphase simulation or an optimization study.
+At the 29 mm working radius, 90/135/180/195/210/225 RPM correspond to approximately 0.263/0.591/1.050/1.233/1.430/1.641 g radial acceleration. These are analytical screening values, not a recovery model. See [capacity calculations](docs/CAPACITY_SCREENING.json) and [motion history](docs/MOTION.md).
 
 The goal is a dense concentrate at the center. The pocket can fill with black sand and other heavies; it cannot guarantee pure gold or prevent every fine particle escaping. Clay must be dispersed to free trapped gold; wet screening alone may not do that. The present prototype has no automated feed conveyor or concentrate discharge. Automatic repeated motion is implemented; hours of unattended bucket-scale processing have not been established.
 
@@ -188,7 +194,7 @@ Edit `include/Config.h` for pins, motor step count, microstep count, direction i
 1. Verify motor coil pairs, driver identity, supply polarity and current limit as described in the wiring guide. The exact Moons motor's phase-current rating is not known from the photo.
 2. Hand-turn the assembled bowl and check the new M3 hub screw and bearing clearance. Secure the cover and catch all overflow.
 3. Start LOW with an empty bowl, then water only. Stop if it stalls, buzzes without moving, rubs, or gets excessively hot. Confirm direction; `INVERT_DIRECTION` reverses it.
-4. Add a very small screened/dispersed sample. Keep all tailings and measure losses before increasing intensity. At 10-30 rpm, spinning may not visibly eject solids; these cautious presets deliberately do not assume that faster flinging improves separation.
+4. Add a very small screened/dispersed sample. Keep all tailings and measure losses before increasing intensity. Start with measured small doses and the fill/cleanup procedure in OPERATION.md. Faster modes can increase losses.
 5. Tune one parameter at a time. More spin pushes particles outward and can remove gold as well as sand. Clay, flakes and bed loading affect settling; these dwell times are not a guarantee that flour gold settles.
 
 No encoder, stall detection, current measurement, temperature sensor or blocked-drain detection is provided by this hardware/software. A4988 does not report these conditions to this controller. Long unattended processing is not validated. The loop uses AccelStepper cooperatively with Wi-Fi disabled; verify actual timing under your hardware conditions before increasing pulse rates. Logging is deferred when the serial transmit buffer lacks space.

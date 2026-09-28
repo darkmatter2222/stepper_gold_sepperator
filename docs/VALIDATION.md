@@ -48,3 +48,22 @@ Before operation, verify the actual kit components/pinouts, reset-OFF behavior, 
 ## Tripled trial after further physical feedback (2026-09-27)
 
 Rocking speed ceilings and acceleration, spin RPM and spin acceleration are each 3× the preceding revision. Angle, count and dwell settings remain unchanged. Native tests 16/16 PASS; ESP8266 build PASS (RAM 28,844 bytes, flash 273,507 bytes). Real AccelStepper simulation PASS: recurring frequencies 4.601/5.592/6.067 Hz, spin durations 1.086/1.088/1.112 s, peak spin 90/135/180 RPM. Tests now handle triangular rocking profiles. Maximum requested rate 9600 pulses/s; selected budget 12000/s is unmeasured on hardware. No claim of physical tracking, available torque or improved gold recovery. Current README/MOTION amendment supersedes earlier preset tables and the former 60 RPM limit.
+
+## Six modes, longer agitation and operating-capacity review (2026-09-27)
+
+Operator reports previous mode 3 (180 RPM) gave strong visible central concentration and mud removal, with some heavies outside the bowl. The photo was inspected; identity, actual RPM, bed depth and recovery are not measured from it. New OPERATION.md records this evidence separately from hypotheses and proposed trial limits.
+
+- Native tests: 18/18 PASS. Added six-mode wrap/invalid selection/queued mode-6 transition and all-six pump gating tests; verified doubled 36/48/60 cycle counts and pulse budget through mode 6. Existing stop/rollover/long-run tests pass.
+- ESP8266 firmware build PASS: RAM 29,008/81,920 bytes, flash 273,671/1,044,464 bytes. Existing framework Python escape warnings only.
+- Real AccelStepper 1.64 simulated-clock test PASS for all six profiles, including cycle counts and 7.5–11 second agitation bounds. Not a CPU-cost, torque or fluid model.
+
+| Mode | Recurring Hz | Agitation through centering, seconds | Spin total seconds | Peak commanded RPM |
+|---|---:|---:|---:|---:|
+| 1 | 4.601 | 7.868 | 1.086 | 90 |
+| 2 | 5.592 | 8.615 | 1.088 | 135 |
+| 3 | 6.067 | 9.920 | 1.112 | 180 |
+| 4 | 6.566 | 9.926 | 1.104 | 195 |
+| 5 | 7.070 | 9.926 | 1.116 | 210 |
+| 6 | 7.576 | 9.923 | 1.094 | 225 |
+
+Static curved-cavity CAD reconstruction PASS: 0.9943 mL to 5 mm above floor, 2.2703 mL to slope entrance, 19.7254 mL to rim (without P07). These are geometry only; 0.5–1 mL cleanup targets are unvalidated conservative trial choices. Source and JSON are committed. No new mesh, physical mode-4–6 trial, pulse-trace measurement, continuous-feed capacity or gold mass balance is claimed. The existing software rate budget is 12000 pulses/s, now reached by mode 6; it is not a hardware throughput certification.
